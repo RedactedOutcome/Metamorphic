@@ -4,9 +4,14 @@
 
 class SandboxApplication : Morphic::Application{
 public:
-    SandboxApplication();
-    virtual SandboxApplication();
+    SandboxApplication(){}
+    ~SandboxApplication(){}
+
+    void OnApplicationStarted() override{
+        
+    }
+
 };
 Morphic::Application* Morphic::Application::CreateApplication(){
-    return new 
+    return new SandboxApplication();
 }

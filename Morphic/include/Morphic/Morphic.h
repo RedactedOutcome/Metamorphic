@@ -2,5 +2,5 @@
 
 #include "Core.h"
 
-#include "Logger/Logger.h"
+#include "Logger/TerminalLogger.h"
 #include "Application.h"
