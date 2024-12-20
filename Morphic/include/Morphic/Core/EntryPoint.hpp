@@ -12,9 +12,6 @@ void signalHandler(int signal) {
 
 using namespace Morphic;
 int main(int argc, char** argv){
-    std::signal(SIGSEGV, signalHandler);
-    char b[2];
-    b[15] = 0;
     Application* application = Morphic::CreateApplication();
     application->Run();
     delete application;
