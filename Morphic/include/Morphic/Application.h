@@ -3,12 +3,13 @@
 #include "pch.h"
 #include "Core.h"
 #include "Scene/Scene.h"
-#include "Display/Window.h"
 
 namespace Morphic{
+    extern class Application* CreateApplication();
     class MORPHIC_API Application{
     public:
-        extern Application* CreateApplication();
+        /// @brief Returns a singleton if instantiated
+        /// @return 
         static Application* GetApplication() noexcept{return s_Application;}
 
         Application();
@@ -31,7 +32,7 @@ namespace Morphic{
         /// @brief This prepares the renderapi for drawing, draws scenes, clears depth buffer, then late draws
         void Draw();
         /// @brief this shutsdown all necessary core components of the engine such as physics, lighting, rendering, windows, gameobjects, ect
-        void CleanUp(){}
+        void CleanUp();
         /// @brief calls scenes Onbefore exit so we can do stuff before program exits
         void OnBeforeExit();
     };

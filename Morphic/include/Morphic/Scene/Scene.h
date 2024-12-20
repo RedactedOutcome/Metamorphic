@@ -17,6 +17,5 @@ namespace Morphic{
         void OnBeforeExit();
         void CleanUp();
     private:
-        std::vector<GameObject
     };
 }

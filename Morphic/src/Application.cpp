@@ -25,6 +25,7 @@ namespace Morphic{
         CleanUp();
     }
 
+    void Application::OnApplicationStarted(){}
     void Application::Awake(){
         for(size_t i = 0; i < m_Scenes.size(); i++){
             m_Scenes[i]->Awake();

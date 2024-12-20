@@ -2,16 +2,15 @@
 
 #include <Morphic/Core/EntryPoint.hpp>
 
-class SandboxApplication : Morphic::Application{
+class SandboxApplication : public Morphic::Application{
 public:
     SandboxApplication(){}
     ~SandboxApplication(){}
 
     void OnApplicationStarted() override{
-        
     }
 
 };
-Morphic::Application* Morphic::Application::CreateApplication(){
+Morphic::Application* Morphic::CreateApplication(){
     return new SandboxApplication();
 }

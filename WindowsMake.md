@@ -37,8 +37,13 @@ LibPaths=
 Libs=
 Files=
 
+CFlags=/MD
 ECFlags=$(DF)MORPHIC_EXPORTS
 ELFlags=/DLL
 Libs += GDI32.lib Shell32.lib kernel32.lib User32.lib
-EngineFiles+= $(EngineSrc)Test.cpp
-AppFiles+=$(EngineSrc)Test.cpp
+
+EngineFiles+= $(EngineSrc)Application.cpp $(EngineSrc)Scene.cpp
+
+AppFiles+=$(AppSrc)SandboxApp.cpp
+AppLibPaths=$(LDF)$(EngineOutputDir)
+AppLibs+=Morphic.lib

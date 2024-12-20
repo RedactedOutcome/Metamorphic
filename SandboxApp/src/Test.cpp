@@ -2,6 +2,6 @@
 
 #include "Morphic/Test.h"
 int main(int argc, char** argv){
-    Test t;
+    TestApp t;
     t.SayHelloWorld();
 }

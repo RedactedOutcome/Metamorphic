@@ -32,5 +32,9 @@ build_engine_pch:
 build_engine:
 	$(CC) $(CF) $(CFlags) $(ECFlags) $(IncludeDirs) $(EngineIncludeDirs) $(UPCH)Morphic/pch.h $(OPCH)$(EngineIntDir)pch.pch $(OBJOutput)$(EngineIntDir) $(EngineFiles)
 	$(LK) $(LFlags) $(ELFlags) $(EngineIntDir)*.obj $(LinkerOut)$(EngineOutputDir)Morphic.dll
+	cp $(EngineOutputDir)Morphic.dll $(AppOutputDir)Morphic.dll
 build_app:
 	$(CC) $(CF) $(CFlags) $(ACFlags) $(IncludeDirs) $(AppIncludeDirs) $(OBJOutput)$(AppIntDir) $(AppFiles)
+	$(LK) $(LFlags) $(ALFlags) $(LibPaths) $(AppLibPaths) $(Libs) $(AppLibs) $(AppIntDir)*.obj $(LinkerOut)$(AppOutputDir)App.exe
+run:
+	$(AppOutputDir)App.exe
