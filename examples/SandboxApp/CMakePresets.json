@@ -1,0 +1,27 @@
+{
+    "version": 3,
+    "cmakeMinimumRequired": {
+      "major": 3,
+      "minor": 19,
+      "patch": 0
+    },
+    "configurePresets": [
+      {
+        "name": "default",
+        "hidden": false,
+        "generator": "NMake Makefiles",
+        "binaryDir": "${sourceDir}/../../build/SandboxApp",
+        "cacheVariables": {
+          "CMAKE_BUILD_TYPE": "Release",
+          "VCPKG_TARGET_TRIPLET": "x64-windows-static"
+        }
+      }
+    ],
+    "buildPresets": [
+      {
+        "name": "default",
+        "hidden": false,
+        "configurePreset": "default"
+      }
+    ]
+  }

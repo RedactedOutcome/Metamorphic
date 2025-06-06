@@ -1,0 +1,9 @@
+[submodule "libs/HBuffer"]
+	path = libs/HBuffer
+	url = https://github.com/RedactedOutcome/HBuffer
+[submodule "libs/sfmath"]
+	path = libs/sfmath
+	url = https://github.com/RedactedOutcome/sfmath
+[submodule "libs/spdlog"]
+	path = libs/spdlog
+	url = https://github.com/gabime/spdlog
