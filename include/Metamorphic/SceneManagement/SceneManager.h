@@ -9,6 +9,7 @@ namespace Metamorphic{
         void Shutdown()noexcept;
     
         void Update()noexcept;
+        void LateUpdate()noexcept;
         void Draw()noexcept;
         void LateDraw()noexcept;
     

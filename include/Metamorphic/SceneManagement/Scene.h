@@ -14,12 +14,15 @@ namespace Metamorphic{
         Scene() noexcept;
         virtual ~Scene() noexcept;
 
-        /// @brief Call when scene is allocated
+        /// @brief Call when scene is created/allocated.
         virtual void Awake()noexcept;
         /// @brief Call after scene is awoken
         virtual void Start()noexcept;
 
         virtual void Update()noexcept;
+        /// @brief Called after Update
+        virtual void LateUpdate()noexcept;
+        /// @brief Called after LateUpdate()
         virtual void Draw()noexcept;
         virtual void LateDraw()noexcept;
     public:

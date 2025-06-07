@@ -16,6 +16,10 @@ namespace Metamorphic{
         for(size_t i = 0; i < s_Scenes.size(); i++)
             s_Scenes[i]->Update();
     }
+    void SceneManager::LateUpdate()noexcept{
+        for(size_t i = 0; i < s_Scenes.size(); i++)
+            s_Scenes[i]->LateUpdate();
+    }
     void SceneManager::Draw()noexcept{
         for(size_t i = 0; i < s_Scenes.size(); i++)
             s_Scenes[i]->Draw();

@@ -38,10 +38,18 @@ namespace Metamorphic{
         return ApplicationError::None;
     }
 
-    void Application::Update()noexcept{}
-    void Application::LateUpdate()noexcept{}
-    void Application::Draw()noexcept{}
-    void Application::LateDraw()noexcept{}
+    void Application::Update()noexcept{
+        m_SceneManager.Update();
+    }
+    void Application::LateUpdate()noexcept{
+        m_SceneManager.LateUpdate();
+    }
+    void Application::Draw()noexcept{
+        m_SceneManager.Draw();
+    }
+    void Application::LateDraw()noexcept{
+        m_SceneManager.LateDraw();
+    }
 
     void Application::Shutdown()noexcept{
         MORPHIC_INFO("Shutting Down");
