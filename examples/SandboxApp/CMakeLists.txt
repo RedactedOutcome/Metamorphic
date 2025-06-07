@@ -1,6 +1,9 @@
 cmake_minimum_required(VERSION 3.19.2)
 project("SandBoxApp")
 
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_STANDARD 17)
+
 file(GLOB SOURCES src/*.cpp)
 add_executable(${CMAKE_PROJECT_NAME} ${SOURCES})
 
