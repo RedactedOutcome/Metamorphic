@@ -37,6 +37,9 @@ foreach(file IN LISTS AdditionalSources)
 endforeach()
 target_sources(${PROJECT_NAME} PRIVATE ${PlatformSpecificSources})
 
+# Memory Management
+target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/libs/HBuffer/include)
+
 # Logging
 set(SPDLOG_NO_EXCEPTIONS ON CACHE BOOL "" FORCE)
 FetchContent_Declare(

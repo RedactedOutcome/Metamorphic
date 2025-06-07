@@ -25,6 +25,9 @@
 
 #include <filesystem>
 
+/// @brief Memory Management
+#include <HBuffer/HBuffer.hpp>
+
 /// @brief Spdlogger
 #include <spdlog/spdlog.h>
 #include <spdlog/fmt/ostr.h>
