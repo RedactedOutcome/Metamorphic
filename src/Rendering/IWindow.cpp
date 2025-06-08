@@ -3,6 +3,8 @@
 
 namespace Metamorphic{
     IWindow::IWindow()noexcept{}
+    IWindow::IWindow(const WindowProps& props)noexcept : m_Props(props){}
+    IWindow::IWindow(WindowProps&& props)noexcept : m_Props(props){}
     IWindow::~IWindow()noexcept{
         Destroy();
     }

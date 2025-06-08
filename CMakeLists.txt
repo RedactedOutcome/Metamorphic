@@ -25,7 +25,8 @@ target_include_directories(${PROJECT_NAME} PRIVATE include/Metamorphic/)
 # Platform Dependent Code
 set(AdditionalSources "")
 if(${CMAKE_SYSTEM_NAME} STREQUAL "Windows")
-list(APPEND AdditionalSources Window/WindowsWindow.cpp)
+    list(APPEND AdditionalSources Window/WindowsWindow.cpp)
+    set(MetamorphicUseOpenGL TRUE)
 else()
 message(FATAL "Failed to get CMake Platform")
 endif()
@@ -49,3 +50,8 @@ FetchContent_Declare(
 FetchContent_MakeAvailable(spdlog)
 target_compile_definitions(spdlog PUBLIC SPDLOG_NO_EXCEPTIONS)
 target_link_libraries(${PROJECT_NAME} PUBLIC spdlog)
+
+# Rendering
+if(${MetamorphicUseOpenGL})
+    target_link_libraries(${PROJECT_NAME} PUBLIC opengl32.lib)
+endif()

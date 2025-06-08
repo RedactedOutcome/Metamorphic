@@ -19,6 +19,7 @@ namespace Metamorphic{
             LateUpdate();
             Draw();
             LateDraw();
+            m_Window->Update();
         }
         Shutdown();
     }
@@ -26,12 +27,14 @@ namespace Metamorphic{
     ApplicationError Application::Init()noexcept{
         Logger::Init();
 
-        m_Window = std::make_unique<WindowsWindow>();
+        WindowProps props(1280, 720, "Hello World");
+        m_Window = std::make_unique<WindowsWindow>(std::move(props));
         WindowError error = m_Window->Create();
         if(error != WindowError::None){
             MORPHIC_ERROR("Failed to create window");
             return ApplicationError::FailedToCreateWindow;
         }
+        m_Window->Show();
         MORPHIC_INFO("Created Window");
 
         MORPHIC_INFO("Initialized");
