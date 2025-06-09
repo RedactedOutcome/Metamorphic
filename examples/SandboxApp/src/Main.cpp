@@ -6,11 +6,17 @@ using namespace Metamorphic;
 
 class SandboxApp : public Application{
 public:
-    SandboxApp()noexcept{
-        std::cout << "Hello SandboxAPp"<<std::endl;
+    SandboxApp()noexcept{}
+    ~SandboxApp()noexcept{}
+
+    void AfterInitialized()noexcept override{
+        SANDBOX_DEBUG("Initialized");
+
+        m_SceneManager.AddScene(Scene);
     }
-    ~SandboxApp()noexcept{
-        std::cout << "Bye SandboxApp"<<std::endl;
+
+    void BeforeShutdown()noexcept override{
+        SANDBOX_DEBUG("Shutting down");
     }
 };
 Application* Metamorphic::CreateApplication()noexcept{

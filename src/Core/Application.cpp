@@ -13,7 +13,7 @@ namespace Metamorphic{
             Shutdown();
             return;
         }
-
+        AfterInitialized();
         while(m_Window->IsCreated()){
             Update();
             LateUpdate();
@@ -21,6 +21,7 @@ namespace Metamorphic{
             LateDraw();
             m_Window->Update();
         }
+        BeforeShutdown();
         Shutdown();
     }
 

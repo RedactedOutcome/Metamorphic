@@ -213,6 +213,8 @@ namespace Metamorphic{
     }
 
     WindowError WindowsWindow::CreateOpenGLBindings()noexcept{
+        m_Context = wglCreateContext(m_HDC);
+        wglMakeCurrent(m_HDC, m_Context);
         return WindowError::None;
     }
 }

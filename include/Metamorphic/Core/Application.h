@@ -21,6 +21,11 @@ namespace Metamorphic{
         void LateDraw()noexcept;
         void Run()noexcept;
         void Shutdown()noexcept;
+    public:
+        /// @brief After program is initialized in the Run Method
+        virtual void AfterInitialized()noexcept{}
+        /// @brief Before shutting down the program in the Run Method, only called program was initially initialized correctly
+        virtual void BeforeShutdown()noexcept{}
     protected:
         std::unique_ptr<IWindow> m_Window;
         SceneManager m_SceneManager;
