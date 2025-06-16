@@ -2,7 +2,7 @@
 
 enum class EventType{
     None,
-    ExitApplication,
+    ApplicationExit,
     WindowMovedEvent,
     WindowResizedEvent,
     MouseMovedEvent,

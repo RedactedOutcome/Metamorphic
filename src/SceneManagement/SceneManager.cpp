@@ -7,9 +7,6 @@ namespace Metamorphic{
         s_Scenes.reserve(5);
     }
     void SceneManager::Shutdown()noexcept{
-        for(size_t i = 0; i < s_Scenes.size(); i++){
-            delete s_Scenes[i];
-        }
         s_Scenes.clear();
     }
     void SceneManager::Update()noexcept{
@@ -31,7 +28,7 @@ namespace Metamorphic{
     }
     bool SceneManager::RemoveScene(Scene* scene)noexcept{
         for(size_t i = 0; i < s_Scenes.size(); i++){
-            if(s_Scenes[i] == scene){
+            if(s_Scenes[i].get() == scene){
                 s_Scenes.erase(s_Scenes.begin() + i);
                 return true;
             }
@@ -41,7 +38,7 @@ namespace Metamorphic{
 
     bool SceneManager::DeleteScene(Scene* scene)noexcept{
         for(size_t i = 0; i < s_Scenes.size(); i++){
-            if(s_Scenes[i] == scene){
+            if(s_Scenes[i].get() == scene){
                 s_Scenes.erase(s_Scenes.begin() + i);
                 delete scene;
                 return true;
@@ -51,9 +48,18 @@ namespace Metamorphic{
     }
     Scene* SceneManager::GetSceneByBuildIndex(SceneBuildIndex index)noexcept{
         for(size_t i = 0; i < s_Scenes.size(); i++){
-            Scene* scene = s_Scenes[i];
-            if(scene->GetBuildIndex() == index)return scene;
+            std::unique_ptr<Scene>& scene = s_Scenes[i];
+            if(scene->GetBuildIndex() == index)return scene.get();
         }
+        return nullptr;
+    }
+
+    Scene* SceneManager::GetSceneByName(const HBuffer& sceneName)noexcept{
+        for(size_t i = 0; i < s_Scenes.size(); i++){
+            std::unique_ptr<Scene>& scene = s_Scenes[i];
+            if(scene->GetName() == sceneName)return scene.get();
+        }
+
         return nullptr;
     }
 }

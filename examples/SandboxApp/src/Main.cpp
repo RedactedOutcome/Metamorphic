@@ -12,7 +12,9 @@ public:
     void AfterInitialized()noexcept override{
         SANDBOX_DEBUG("Initialized");
 
-        m_SceneManager.AddScene(Scene);
+        //m_SceneManager.AddScene(Scene);
+        Scene* scene = m_SceneManager.CreateScene();
+        scene->AddGameObject();
     }
 
     void BeforeShutdown()noexcept override{

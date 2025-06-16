@@ -1,0 +1,1 @@
+#include "Metamorphic/Core/Objects/Component.h"
