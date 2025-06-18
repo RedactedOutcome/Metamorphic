@@ -13,6 +13,7 @@ namespace Metamorphic{
         void SetPosition(const Vector& vec)const noexcept;
         void SetOrientation(const sfmath::quat& quat)noexcept;
         void SetScale(const Vector& vec)noexcept;
+        
         void Translate(const Vec3& vec)noexcept;
         void Rotate(const sfmath::quat& quat)noexcept;
         void Scale(const Vector& scale)noexcept;
