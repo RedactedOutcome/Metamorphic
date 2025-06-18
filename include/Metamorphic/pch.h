@@ -1,6 +1,6 @@
 #pragma once 
 
-#include "Core/Core.h"
+#include "Core/PlatformDetection.h"
 
 /// @brief C++17 standard library
 #include <iostream>

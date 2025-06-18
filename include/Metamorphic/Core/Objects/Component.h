@@ -19,9 +19,11 @@ namespace Metamorphic{
         virtual void LateDraw()noexcept=0;
         
     public:
+        bool IsEnabled() const noexcept{return m_Enabled;}
         GameObject* GetGameObject()const noexcept{return m_GameObject;}
         EventDispatcher& GetEventDispatcher() const noexcept{return (EventDispatcher&)m_EventDispatcher;}
     private:
+        bool m_Enabled = true;
         GameObject* m_GameObject = nullptr;
         EventDispatcher m_EventDispatcher;
     };
