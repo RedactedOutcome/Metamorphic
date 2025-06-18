@@ -12,7 +12,7 @@ namespace Metamorphic{
     }
     void GameObject::Start()noexcept{
         for(size_t i = 0; i < m_Components.size(); i++){
-            m_Components[i]->Awake();
+            m_Components[i]->Start();
         }
     }
     void GameObject::Update()noexcept{
