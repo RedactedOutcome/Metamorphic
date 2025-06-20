@@ -33,6 +33,11 @@
 #include <spdlog/fmt/ostr.h>
 #include <spdlog/sinks/stdout_color_sinks.h>
 
+/// @brief Math
+#include <sfmath/HMat4x4.h>
+#include <sfmath/SMat4x4.h>
+//#include <sfmath/PMat4x4.h>
+
 /// @brief Platform Specific Macros/Includes
 #ifdef METAMORPHIC_PLATFORM_WINDOWS
     #define _WIN32_WINNT_WIN10                  0x0A00 // Windows 10
