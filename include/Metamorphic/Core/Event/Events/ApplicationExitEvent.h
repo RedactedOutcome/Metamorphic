@@ -3,7 +3,7 @@
 #include "Metamorphic/Core/Event/Event.h"
 
 namespace Metamorphic{
-    class ApplicationExitEvent : Event{
+    class ApplicationExitEvent : public Event{
     public:
         ApplicationExitEvent()noexcept{}
         ~ApplicationExitEvent()noexcept{}

@@ -16,6 +16,7 @@ namespace Metamorphic{
         }
     }
     void GameObject::Update()noexcept{
+        m_Transform.Update();
         for(size_t i = 0; i < m_Components.size(); i++){
             m_Components[i]->Update();
         }

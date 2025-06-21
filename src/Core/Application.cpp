@@ -1,8 +1,11 @@
 #include "Metamorphic/pch.h"
 #include "Core/Application.h"
-
-#include "Platform/Window/WindowsWindow.h"
+#include "Core/Time.h"
 #include "Core/Logger.h"
+
+/// TODO: check macros for platform specific window and renderer
+#include "Platform/Window/WindowsWindow.h"
+#include "Platform/Renderers/OpenGLRenderer.h"
 
 namespace Metamorphic{
     Application::Application()noexcept{}
@@ -16,8 +19,10 @@ namespace Metamorphic{
         }
         AfterInitialized();
         while(m_Window->IsCreated()){
+            Time::Update();
             Update();
             LateUpdate();
+            //MORPHIC_INFO("FPS {0}", (1.0f / Time::GetDeltaTime()));
             Draw();
             LateDraw();
             m_Window->Update();
@@ -39,6 +44,13 @@ namespace Metamorphic{
         m_Window->Show();
         MORPHIC_INFO("Created Window");
 
+        m_Renderer = std::make_unique<OpenGLRenderer>(m_Window.get());
+        if(m_Renderer->Init() != RenderAPIError::None){
+            MORPHIC_ERROR("Failed to initialize Renderer");
+            return ApplicationError::FailedToInitializeRenderer;
+        }
+        MORPHIC_INFO("Initialized Renderer");
+
         MORPHIC_INFO("Initialized");
         return ApplicationError::None;
     }
@@ -50,9 +62,11 @@ namespace Metamorphic{
         m_SceneManager.LateUpdate();
     }
     void Application::Draw()noexcept{
+        m_Renderer->PrepareScreen();
         m_SceneManager.Draw();
     }
     void Application::LateDraw()noexcept{
+        m_Renderer->ClearDepthBuffers();
         m_SceneManager.LateDraw();
     }
 

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Metamorphic/pch.h"
+#include "Metamorphic/Core/Event/EventDispatcher.h"
 #include "WindowProps.h"
 
 namespace Metamorphic{
@@ -28,10 +28,14 @@ namespace Metamorphic{
 
         virtual WindowError CreateOpenGLBindings()noexcept=0;
     public:
+        void SetEventDispatcher(EventDispatcher* eventDispatcher) noexcept{m_EventDispatcher = eventDispatcher;}
+    public:
+        EventDispatcher* GetEventDispatcher() const noexcept{return m_EventDispatcher;}
         WindowProps GetWindowProps() const noexcept{return m_Props;}
         bool IsCreated() const noexcept{return m_IsCreated;}
         bool IsShowing() const noexcept{return m_IsShowing;}
     protected:
+        EventDispatcher* m_EventDispatcher = nullptr;
         WindowProps m_Props;
         bool m_IsCreated = false;
         bool m_IsShowing = false;

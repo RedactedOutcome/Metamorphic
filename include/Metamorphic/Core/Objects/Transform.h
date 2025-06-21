@@ -10,10 +10,10 @@ namespace Metamorphic{
     class Transform{
     public:
         static_assert(
-            std::is_same<Vector, sfmath::Vec3>::value || std::is_same<Vector, sfmath::Vec2>::value,
+            std::is_same<Vector<T>, sfmath::Vec3<T>>::value || std::is_same<Vector<T>, sfmath::Vec2<T>>::value,
             "Transform Vector Must be either sfmath::Vec3 or sfmath::Vec2"
         );
-        
+
         Transform()noexcept{}
         ~Transform()noexcept{}
 
@@ -50,7 +50,22 @@ namespace Metamorphic{
         }
 
         void GenerateTransformationMatrix()noexcept{
+            m_TransformationMatrix.SetIdentity();
+            m_TransformationMatrix.SetValue(0, 3, m_Position.m_X);
+            m_TransformationMatrix.SetValue(1, 3, m_Position.m_Y);
+
+            if constexpr (std::is_same<Vector<T>, sfmath::Vec3<T>>::value)
+                m_TransformationMatrix.SetValue(2, 3, m_Position.m_Z);
             
+            m_TransformationMatrix *= m_Orientation.ToSMat4x4Matrix();
+
+            sfmath::SMat4x4 scalingMatrix;
+            scalingMatrix.SetIdentity();
+            scalingMatrix.SetValue(0, 0, m_Scale.m_X);
+            scalingMatrix.SetValue(1, 1, m_Scale.m_Y);
+            if constexpr (std::is_same<Vector<T>, sfmath::Vec3<T>>::value)scalingMatrix.SetValue(2, 2, m_Scale.m_Z);
+
+            m_TransformationMatrix *= scalingMatrix;
         }
     public:
         /// @brief Strict functions that do only what they say. This way you may line up multiple things then generate matrices and ect
@@ -71,5 +86,6 @@ namespace Metamorphic{
         Vector<T> m_Scale;
         sfmath::Quat m_Orientation;
         sfmath::SMat4x4 m_TransformationMatrix;
+        bool m_UpdateTransform = true;
     };
 }

@@ -17,10 +17,8 @@ namespace Metamorphic{
         /// @brief allocates a new scene of type SCENE. Calls the scenes Awake() and Start(). Then we add to the scene list
         template <typename SCENE=Scene, typename... Args>
         SCENE* CreateScene(Args&&... args) noexcept{
-            SCENE* scene = new SCENE(std::forward<Args>(args)...);
-            scene->Awake();
-            scene->Start();
-            s_Scenes.emplace_back(static_cast<Scene*>(scene));
+            SCENE* scene = new SCENE(this, std::forward<Args>(args)...);
+            m_Scenes.emplace_back(static_cast<Scene*>(scene));
             return scene;
         }
 
@@ -33,6 +31,8 @@ namespace Metamorphic{
         Scene* GetSceneByBuildIndex(SceneBuildIndex index)noexcept;
         Scene* GetSceneByName(const HBuffer& sceneName)noexcept;
     private:
-        std::vector<std::unique_ptr<Scene>> s_Scenes;
+        std::vector<std::unique_ptr<Scene>> m_Scenes;
+        std::vector<Scene*> m_ScenesToAwake;
+        std::vector<Scene*> m_ScenesToStart;
     };
 }

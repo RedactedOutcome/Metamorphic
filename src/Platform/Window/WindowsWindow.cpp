@@ -2,6 +2,8 @@
 #include "Platform/Window/WindowsWindow.h"
 #include "Core/Logger.h"
 
+#include "Core/Event/Events/ApplicationExitEvent.h"
+
 LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam){
     Metamorphic::WindowsWindow* window = reinterpret_cast<Metamorphic::WindowsWindow*>(GetWindowLongPtr(hwnd, GWLP_USERDATA));
 
@@ -12,10 +14,12 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam){
         }
         return DefWindowProc(hwnd, uMsg, wParam, lParam);
     }
+    using namespace Metamorphic;
     switch (uMsg){
         case WM_CLOSE:{
-            //ExitApplicationEvent event;
-            //Game::GetEventDispatcher().Dispatch<ExitApplicationEvent>(event);
+            ApplicationExitEvent event;
+            EventDispatcher* eventDispatcher = window->GetEventDispatcher();
+            if(eventDispatcher)eventDispatcher->Dispatch<ApplicationExitEvent>(event);
             window->Destroy();
             PostQuitMessage(0);
             return 0;

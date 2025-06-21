@@ -1,6 +1,8 @@
 #pragma once
 
+#include "Transform.h"
 #include "Component.h"
+
 namespace Metamorphic{
     class GameObject{
     public:
@@ -21,6 +23,7 @@ namespace Metamorphic{
         }
     private:
         bool m_Enabled = true;
+        Transform<sfmath::Vec3, float> m_Transform;
         std::vector<std::unique_ptr<Component>> m_Components;
     };
 }

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Metamorphic/Rendering/IWindow.h"
+#include "Metamorphic/Rendering/IRenderAPI.h"
 #include "Metamorphic/SceneManagement/SceneManager.h"
 
 namespace Metamorphic{
@@ -28,8 +29,8 @@ namespace Metamorphic{
         virtual void BeforeShutdown()noexcept{}
     protected:
         std::unique_ptr<IWindow> m_Window;
+        std::unique_ptr<IRenderAPI> m_Renderer;
         SceneManager m_SceneManager;
-    private:
     };
 
     extern Application* CreateApplication()noexcept;

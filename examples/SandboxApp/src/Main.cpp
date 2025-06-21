@@ -14,7 +14,7 @@ public:
 
         //m_SceneManager.AddScene(Scene);
         Scene* scene = m_SceneManager.CreateScene();
-        scene->AddGameObject();
+        scene->CreateGameObject();
     }
 
     void BeforeShutdown()noexcept override{

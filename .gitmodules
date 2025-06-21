@@ -7,3 +7,6 @@
 [submodule "libs/spdlog"]
 	path = libs/spdlog
 	url = https://github.com/gabime/spdlog
+[submodule "libs/glew"]
+	path = libs/glew
+	url = https://github.com/nigels-com/glew.git
