@@ -34,6 +34,9 @@
 #include <spdlog/sinks/stdout_color_sinks.h>
 
 /// @brief Math
+#include <sfmath/Quat.h>
+#include <sfmath/Vec3.hpp>
+#include <sfmath/Vec2.hpp>
 #include <sfmath/HMat4x4.h>
 #include <sfmath/SMat4x4.h>
 //#include <sfmath/PMat4x4.h>

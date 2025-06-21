@@ -41,6 +41,9 @@ target_sources(${PROJECT_NAME} PRIVATE ${PlatformSpecificSources})
 # Memory Management
 target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/libs/HBuffer/include)
 
+# Math
+add_subdirectory("${CMAKE_CURRENT_SOURCE_DIR}/libs/sfmath")
+target_link_libraries(${PROJECT_NAME} PUBLIC sfmath)
 # Logging
 set(SPDLOG_NO_EXCEPTIONS ON CACHE BOOL "" FORCE)
 FetchContent_Declare(
