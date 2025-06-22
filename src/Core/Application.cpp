@@ -22,7 +22,7 @@ namespace Metamorphic{
             Time::Update();
             Update();
             LateUpdate();
-            //MORPHIC_INFO("FPS {0}", (1.0f / Time::GetDeltaTime()));
+            MORPHIC_INFO("FPS {0}", (1.0f / Time::GetDeltaTime()));
             Draw();
             LateDraw();
             m_Window->Update();
@@ -41,6 +41,7 @@ namespace Metamorphic{
             MORPHIC_ERROR("Failed to create window");
             return ApplicationError::FailedToCreateWindow;
         }
+        m_Window->SetEventDispatcher(&m_EventDispatcher);
         m_Window->Show();
         MORPHIC_INFO("Created Window");
 

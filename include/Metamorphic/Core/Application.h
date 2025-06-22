@@ -28,6 +28,7 @@ namespace Metamorphic{
         /// @brief Before shutting down the program in the Run Method, only called program was initially initialized correctly
         virtual void BeforeShutdown()noexcept{}
     protected:
+        EventDispatcher m_EventDispatcher;
         std::unique_ptr<IWindow> m_Window;
         std::unique_ptr<IRenderAPI> m_Renderer;
         SceneManager m_SceneManager;

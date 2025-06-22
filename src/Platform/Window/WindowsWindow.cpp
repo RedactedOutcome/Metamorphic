@@ -199,7 +199,7 @@ namespace Metamorphic{
     }
 
     void WindowsWindow::Update()noexcept{
-        if (PeekMessage(&m_MSG, nullptr, 0, 0, PM_REMOVE)) {
+        while(PeekMessage(&m_MSG, nullptr, 0, 0, PM_REMOVE)) {
             TranslateMessage(&m_MSG);
             DispatchMessage(&m_MSG);
         }

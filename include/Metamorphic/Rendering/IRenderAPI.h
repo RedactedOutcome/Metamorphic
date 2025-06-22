@@ -3,6 +3,10 @@
 #include "IWindow.h"
 
 namespace Metamorphic{
+    enum class RenderAPI{
+        None=0,
+        OpenGL
+    };
     enum class RenderAPIError{
         None=0
     };
@@ -17,5 +21,6 @@ namespace Metamorphic{
         virtual void ClearDepthBuffers()noexcept=0;
     protected:
         IWindow* m_Window = nullptr;
+        RenderAPI m_RenderAPI = RenderAPI::None;
     };
 }
