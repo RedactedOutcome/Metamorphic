@@ -7,6 +7,10 @@ namespace Metamorphic{
 
     RenderAPIError OpenGLRenderer::Init()noexcept{
         m_Window->CreateOpenGLBindings();
+        if(glewInit() != GLEW_OK){
+            return RenderAPIError::FailedToInitializeGlew;
+        }
+        glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
         return RenderAPIError::None;
     }
     RenderAPIError OpenGLRenderer::Shutdown()noexcept{

@@ -31,7 +31,7 @@ namespace Metamorphic{
         void SetEventDispatcher(EventDispatcher* eventDispatcher) noexcept{m_EventDispatcher = eventDispatcher;}
     public:
         EventDispatcher* GetEventDispatcher() const noexcept{return m_EventDispatcher;}
-        WindowProps GetWindowProps() const noexcept{return m_Props;}
+        const WindowProps& GetWindowProps() const noexcept{return m_Props;}
         bool IsCreated() const noexcept{return m_IsCreated;}
         bool IsShowing() const noexcept{return m_IsShowing;}
     protected:

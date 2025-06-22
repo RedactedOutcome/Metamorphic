@@ -17,17 +17,22 @@ namespace Metamorphic{
         void SetHeight(int32_t height) noexcept{m_Height = height;}
         void SetTitle(const HBuffer& value)noexcept{m_Title = value;}
         void SetTitle(HBuffer&& value)noexcept{m_Title = std::move(value);}
+        void SetFullscreen(bool value)noexcept{m_IsFullscreen = value;}
     public:
         int32_t GetX() const noexcept{return m_X;}
         int32_t GetY() const noexcept{return m_Y;}
         int32_t GetWidth() const noexcept{return m_Width;}
         int32_t GetHeight() const noexcept{return m_Height;}
         HBuffer GetTitle() const noexcept{return m_Title;}
+        bool IsVSync() const noexcept{return m_IsVSync;}
+        bool IsFullScreen() const noexcept{return m_IsFullscreen;}
     private:
         int32_t m_X = 0;
         int32_t m_Y = 0;
         int32_t m_Width=METAMORPHIC_WINDOW_FULLSCREEN;
         int32_t m_Height=METAMORPHIC_WINDOW_FULLSCREEN;
         HBuffer m_Title;
+        bool m_IsVSync = false;
+        bool m_IsFullscreen = false;
     };
 }
