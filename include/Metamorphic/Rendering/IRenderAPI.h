@@ -9,7 +9,7 @@ namespace Metamorphic{
     };
     enum class RenderAPIError{
         None=0,
-        FailedToInitializeGlew
+        FailedToInitializeOpenGL
     };
     class IRenderAPI{
     public:

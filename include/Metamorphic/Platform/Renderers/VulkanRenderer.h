@@ -13,5 +13,7 @@ namespace Metamorphic{
 
         void PrepareScreen() noexcept override;
         void ClearDepthBuffers()noexcept override;
+    private:
+        VkInstance m_Instance;
     };
 }

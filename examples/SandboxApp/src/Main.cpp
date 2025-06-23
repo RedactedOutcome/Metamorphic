@@ -1,9 +1,16 @@
 #include "Metamorphic.h"
 #include "Metamorphic/EntryPoint.h"
-#include <iostream>
 
 using namespace Metamorphic;
 
+class CustomScene : public Scene{
+    CustomScene()noexcept{}
+    ~CustomScene()noexcept{}
+
+    void Update()noexcept override{
+        SANDBOX_DEBUG("UPDATING");
+    }
+};
 class SandboxApp : public Application{
 public:
     SandboxApp()noexcept{}
@@ -13,7 +20,7 @@ public:
         SANDBOX_DEBUG("Initialized");
 
         //m_SceneManager.AddScene(Scene);
-        Scene* scene = m_SceneManager.CreateScene();
+        Scene* scene = m_SceneManager.CreateScene<CustomScene>();
         scene->CreateGameObject();
     }
 

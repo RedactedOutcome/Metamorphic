@@ -45,6 +45,10 @@
     #include <GL/glew.h>
 #endif
 
+#ifdef METAMORPHIC_USE_VULKAN
+    #include <vulkan/vulkan.hpp>
+#endif
+
 /// @brief Platform Specific Macros/Includes
 #ifdef METAMORPHIC_PLATFORM_WINDOWS
     #define _WIN32_WINNT_WIN10                  0x0A00 // Windows 10

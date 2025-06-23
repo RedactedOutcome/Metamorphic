@@ -5,6 +5,10 @@ namespace Metamorphic{
     PhysXPhysics::PhysXPhysics()noexcept : IPhysicsAPI(){}
     PhysXPhysics::~PhysXPhysics()noexcept{}
 
-    PhysicsAPIError PhysXPhysics::Init()noexcept{}
-    PhysicsAPIError PhysXPhysics::Shutdown()noexcept{}
+    PhysicsAPIError PhysXPhysics::Init()noexcept{
+        return PhysicsAPIError::None;
+    }
+    PhysicsAPIError PhysXPhysics::Shutdown()noexcept{
+        return PhysicsAPIError::None;
+    }
 }

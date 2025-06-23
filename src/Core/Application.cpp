@@ -6,6 +6,8 @@
 /// TODO: check macros for platform specific window and renderer
 #include "Platform/Window/WindowsWindow.h"
 #include "Platform/Renderers/OpenGLRenderer.h"
+#include "Platform/Renderers/VulkanRenderer.h"
+#include "Platform/Physics/PhysX/PhysXPhysics.h"
 
 namespace Metamorphic{
     Application::Application()noexcept{}
@@ -22,7 +24,7 @@ namespace Metamorphic{
             Time::Update();
             Update();
             LateUpdate();
-            MORPHIC_INFO("FPS {0}", (1.0f / Time::GetDeltaTime()));
+            //MORPHIC_INFO("FPS {0}", (1.0f / Time::GetDeltaTime()));
             Draw();
             LateDraw();
             m_Window->Update();
@@ -45,12 +47,19 @@ namespace Metamorphic{
         m_Window->Show();
         MORPHIC_INFO("Created Window");
 
-        m_Renderer = std::make_unique<OpenGLRenderer>(m_Window.get());
+        m_Renderer = std::make_unique<VulkanRenderer>(m_Window.get());
         if(m_Renderer->Init() != RenderAPIError::None){
             MORPHIC_ERROR("Failed to initialize Renderer");
             return ApplicationError::FailedToInitializeRenderer;
         }
         MORPHIC_INFO("Initialized Renderer");
+
+
+        m_Physics = std::make_unique<PhysXPhysics>();
+        if(m_Physics->Init() != PhysicsAPIError::None){
+            MORPHIC_ERROR("Failed to initialize Physics");
+            return ApplicationError::FailedToInitializePhysics;
+        }
 
         MORPHIC_INFO("Initialized");
         return ApplicationError::None;

@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 3.19.2)
 project("Metamorphic")
 
+# Engine does not support x32 architectures
+
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_STANDARD 17)
 
@@ -28,6 +30,8 @@ if(${CMAKE_SYSTEM_NAME} STREQUAL "Windows")
     list(APPEND AdditionalSources Window/WindowsWindow.cpp)
     set(MetamorphicGLEW TRUE)
     set(MetamorphicUseOpenGL TRUE)
+    set(MetamorphicUseVulkan TRUE)
+    set(MetamorhpicUsePhysX TRUE)
 else()
 message(FATAL "Failed to get CMake Platform")
 endif()
@@ -64,6 +68,29 @@ if(${MetamorphicGLEW})
     target_link_directories(${PROJECT_NAME} PUBLIC libs/glew/lib/Release/x64)
     target_link_libraries(${PROJECT_NAME} PUBLIC glew32s.lib)
 endif()
+
 if(${MetamorphicUseOpenGL})
     target_link_libraries(${PROJECT_NAME} PUBLIC opengl32.lib)
+endif()
+
+if(${MetamorphicUseVulkan})
+    target_compile_definitions(${PROJECT_NAME} PUBLIC METAMORPHIC_USE_VULKAN)
+    target_include_directories(${PROJECT_NAME} PUBLIC $ENV{VULKAN_SDK}/Include)
+    target_link_directories(${PROJECT_NAME} PUBLIC $ENV{VULKAN_SDK}/Lib)
+    target_link_libraries(${PROJECT_NAME} PUBLIC vulkan-1.lib)
+endif()
+
+if(${MetamorhpicUsePhysX})
+    target_compile_definitions(${PROJECT_NAME} PUBLIC METAMORPHIC_USE_PHYSX)
+    set(PHYSX_ROOT_DIR $ENV{PHYSX_ROOT_DIR})
+    set(PX_OUTPUT_LIB_DIR "${CMAKE_BINARY_DIR}/lib" CACHE PATH "PhysX output lib directory")
+    set(PX_OUTPUT_BIN_DIR "${CMAKE_BINARY_DIR}/bin" CACHE PATH "PhysX output binary directory")
+    string(REPLACE "\\" "/" PHYSX_PATH "$ENV{PHYSX_ROOT_DIR}")
+    set(PHYSX_GENERATE_STATIC_LIBRARIES ON)
+    FetchContent_Declare(
+        PhysXSDK
+        SOURCE_DIR "${PHYSX_PATH}/compiler/public"
+        )
+    FetchContent_MakeAvailable(PhysXSDK)
+    target_link_libraries(${PROJECT_NAME} PUBLIC PhysXSDK)
 endif()

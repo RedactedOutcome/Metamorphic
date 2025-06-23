@@ -3,12 +3,14 @@
 #include "Metamorphic/Rendering/IWindow.h"
 #include "Metamorphic/Rendering/IRenderAPI.h"
 #include "Metamorphic/SceneManagement/SceneManager.h"
+#include "Metamorphic/Physics/IPhysicsAPI.h"
 
 namespace Metamorphic{
     enum ApplicationError{
         None=0,
         FailedToCreateWindow,
-        FailedToInitializeRenderer
+        FailedToInitializeRenderer,
+        FailedToInitializePhysics
     };
     class Application{
     public:
@@ -27,10 +29,17 @@ namespace Metamorphic{
         virtual void AfterInitialized()noexcept{}
         /// @brief Before shutting down the program in the Run Method, only called program was initially initialized correctly
         virtual void BeforeShutdown()noexcept{}
+    public:
+        EventDispatcher& GetEventDispatcher() const noexcept{return (EventDispatcher&)m_EventDispatcher;}
+        IWindow* GetWindow() const noexcept{return m_Window.get();}
+        IRenderAPI* GetRenderer() const noexcept{return m_Renderer.get();}
+        IPhysicsAPI* GetPhysicsAPI() const noexcept{return m_Physics.get();}
+        SceneManager& GetSceneManager() const noexcept{return (SceneManager&)m_SceneManager;}
     protected:
         EventDispatcher m_EventDispatcher;
         std::unique_ptr<IWindow> m_Window;
         std::unique_ptr<IRenderAPI> m_Renderer;
+        std::unique_ptr<IPhysicsAPI> m_Physics;
         SceneManager m_SceneManager;
     };
 
