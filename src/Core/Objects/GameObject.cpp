@@ -21,6 +21,11 @@ namespace Metamorphic{
             m_Components[i]->Update();
         }
     }
+    void GameObject::FixedUpdate()noexcept{
+        for(size_t i = 0; i < m_Components.size(); i++){
+            m_Components[i]->FixedUpdate();
+        }
+    }
     void GameObject::LateUpdate()noexcept{
         for(size_t i = 0; i < m_Components.size(); i++){
             m_Components[i]->LateUpdate();

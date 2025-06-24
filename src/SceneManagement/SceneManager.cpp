@@ -11,16 +11,24 @@ namespace Metamorphic{
     }
     void SceneManager::Update()noexcept{
         for(size_t i = 0; i < m_ScenesToAwake.size(); i++){
-            m_ScenesToAwake[i]->Awake();
-            m_ScenesToStart.emplace_back(m_ScenesToStart[i]);
+            Scene* scene = m_ScenesToStart[i];
+            scene->Awake();
+            scene->m_Awoken = true;
+            m_ScenesToStart.emplace_back(scene);
         }
-        for(size_t i = 0; i < m_ScenesToStart.size(); i++)
-            m_ScenesToStart[i]->Start();
-
+        for(size_t i = 0; i < m_ScenesToStart.size(); i++){
+            Scene* scene = m_ScenesToStart[i];
+            scene->Start();
+            scene->m_Started = true;
+        }
         m_ScenesToAwake.clear();
         m_ScenesToStart.clear();
         for(size_t i = 0; i < m_Scenes.size(); i++)
             m_Scenes[i]->Update();
+    }
+    void SceneManager::FixedUpdate()noexcept{
+        for(size_t i = 0; i < m_Scenes.size(); i++)
+            m_Scenes[i]->FixedUpdate();
     }
     void SceneManager::LateUpdate()noexcept{
         for(size_t i = 0; i < m_Scenes.size(); i++)

@@ -90,7 +90,14 @@ namespace Metamorphic{
     void Application::Shutdown()noexcept{
         MORPHIC_INFO("Shutting Down");
         m_SceneManager.Shutdown();
-
+    #ifndef METAMORPHIC_NO_PHYSICS_ENGINE
+        if(m_Physics){
+            m_Physics->Shutdown();
+        }
+    #endif
+        if(m_Renderer)[
+            m_Renderer->Shutdown();
+        ]
         if(m_Window){
             m_Window->Destroy();
             m_Window.reset();

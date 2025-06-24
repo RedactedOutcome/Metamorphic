@@ -9,6 +9,7 @@ namespace Metamorphic{
     void Component::Awake()noexcept{}
     void Component::Start()noexcept{}
     void Component::Update()noexcept{}
+    void Component::FixedUpdate()noexcept{}
     void Component::LateUpdate()noexcept{}
     void Component::Draw()noexcept{}
     void Component::LateDraw()noexcept{}

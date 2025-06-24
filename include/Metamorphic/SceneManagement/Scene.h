@@ -12,6 +12,7 @@ namespace Metamorphic{
     /// @brief A default scene class
     class Scene{
     public:
+        friend class SceneManager;
         Scene(SceneManager* manager) noexcept;
         virtual ~Scene() noexcept;
 
@@ -21,7 +22,9 @@ namespace Metamorphic{
         virtual void Start()noexcept;
         /// @brief Called at the start of every frame
         virtual void Update()noexcept;
-        /// @brief Called after Update
+        /// @brief Called at the start of every frame
+        virtual void FixedUpdate()noexcept;
+        /// @brief Called after Fixed Update and physics calculations
         virtual void LateUpdate()noexcept;
         /// @brief Called after LateUpdate()
         virtual void Draw()noexcept;
@@ -41,6 +44,7 @@ namespace Metamorphic{
         SceneBuildIndex m_SceneIndex = SceneBuildIndex::None;
         HBuffer m_Name = "Scene";
         bool m_Awoken = false;
+        bool m_Started = false;
         std::vector<std::unique_ptr<GameObject>> m_GameObjects;
     };
 }

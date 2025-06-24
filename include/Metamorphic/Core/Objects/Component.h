@@ -14,6 +14,7 @@ namespace Metamorphic{
         virtual void Awake()noexcept=0;
         virtual void Start()noexcept=0;
         virtual void Update()noexcept=0;
+        virtual void FixedUpdate()noexcept=0;
         virtual void LateUpdate()noexcept=0;
         virtual void Draw()noexcept=0;
         virtual void LateDraw()noexcept=0;

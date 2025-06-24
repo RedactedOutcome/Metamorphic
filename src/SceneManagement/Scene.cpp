@@ -8,7 +8,6 @@ namespace Metamorphic{
     void Scene::Awake()noexcept{
         for(size_t i = 0; i < m_GameObjects.size(); i++)
             m_GameObjects[i]->Awake();
-        m_Awoken = true;
     }
     void Scene::Start()noexcept{
         for(size_t i = 0; i < m_GameObjects.size(); i++)
@@ -21,6 +20,10 @@ namespace Metamorphic{
     void Scene::LateUpdate()noexcept{
         for(size_t i = 0; i < m_GameObjects.size(); i++)
             m_GameObjects[i]->LateUpdate();
+    }
+    void Scene::FixedUpdate()noexcept{
+        for(size_t i = 0; i < m_GameObjects.size(); i++)
+            m_GameObjects[i]->FixedUpdate();
     }
     void Scene::Draw()noexcept{
         for(size_t i = 0; i < m_GameObjects.size(); i++)

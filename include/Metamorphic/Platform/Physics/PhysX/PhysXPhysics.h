@@ -8,7 +8,9 @@ namespace Metamorphic{
         PhysXPhysics()noexcept;
         ~PhysXPhysics()noexcept override;
 
-        PhysicsAPIError Init()noexcept;
-        PhysicsAPIError Shutdown()noexcept;
+        PhysicsAPIError Init()noexcept override;
+        PhysicsAPIError Shutdown()noexcept override;
+
+        void Update() noexcept override;
     };
 }
