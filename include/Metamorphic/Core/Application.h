@@ -33,13 +33,17 @@ namespace Metamorphic{
         EventDispatcher& GetEventDispatcher() const noexcept{return (EventDispatcher&)m_EventDispatcher;}
         IWindow* GetWindow() const noexcept{return m_Window.get();}
         IRenderAPI* GetRenderer() const noexcept{return m_Renderer.get();}
+    #ifndef METAMORPHIC_NO_PHYSICS_ENGINE
         IPhysicsAPI* GetPhysicsAPI() const noexcept{return m_Physics.get();}
+    #ifndef 
         SceneManager& GetSceneManager() const noexcept{return (SceneManager&)m_SceneManager;}
     protected:
         EventDispatcher m_EventDispatcher;
         std::unique_ptr<IWindow> m_Window;
         std::unique_ptr<IRenderAPI> m_Renderer;
+    #ifndef METAMORPHIC_NO_PHYSICS_ENGINE
         std::unique_ptr<IPhysicsAPI> m_Physics;
+    #endif
         SceneManager m_SceneManager;
     };
 

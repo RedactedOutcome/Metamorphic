@@ -11,4 +11,8 @@ namespace Metamorphic{
     PhysicsAPIError PhysXPhysics::Shutdown()noexcept{
         return PhysicsAPIError::None;
     }
+
+    void PhysXPhysics::Update()noexcept{
+        
+    }
 }

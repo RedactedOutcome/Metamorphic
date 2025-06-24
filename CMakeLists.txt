@@ -80,17 +80,22 @@ if(${MetamorphicUseVulkan})
     target_link_libraries(${PROJECT_NAME} PUBLIC vulkan-1.lib)
 endif()
 
-if(${MetamorhpicUsePhysX})
-    target_compile_definitions(${PROJECT_NAME} PUBLIC METAMORPHIC_USE_PHYSX)
-    set(PHYSX_ROOT_DIR $ENV{PHYSX_ROOT_DIR})
-    set(PX_OUTPUT_LIB_DIR "${CMAKE_BINARY_DIR}/lib" CACHE PATH "PhysX output lib directory")
-    set(PX_OUTPUT_BIN_DIR "${CMAKE_BINARY_DIR}/bin" CACHE PATH "PhysX output binary directory")
-    string(REPLACE "\\" "/" PHYSX_PATH "$ENV{PHYSX_ROOT_DIR}")
-    set(PHYSX_GENERATE_STATIC_LIBRARIES ON)
-    FetchContent_Declare(
-        PhysXSDK
-        SOURCE_DIR "${PHYSX_PATH}/compiler/public"
-        )
-    FetchContent_MakeAvailable(PhysXSDK)
-    target_link_libraries(${PROJECT_NAME} PUBLIC PhysXSDK)
+# Physics
+if(${MetamorhpicNoPhysics})
+    target_compile_definitions(${PROJECT_NAME} PUBLIC METAMORPHIC_NO_PHYSICS_ENGINE)
+else()
+    if(${MetamorhpicUsePhysX})
+        target_compile_definitions(${PROJECT_NAME} PUBLIC METAMORPHIC_USE_PHYSX)
+        set(PHYSX_ROOT_DIR $ENV{PHYSX_ROOT_DIR})
+        set(PX_OUTPUT_LIB_DIR "${CMAKE_BINARY_DIR}/lib" CACHE PATH "PhysX output lib directory")
+        set(PX_OUTPUT_BIN_DIR "${CMAKE_BINARY_DIR}/bin" CACHE PATH "PhysX output binary directory")
+        string(REPLACE "\\" "/" PHYSX_PATH "$ENV{PHYSX_ROOT_DIR}")
+        set(PHYSX_GENERATE_STATIC_LIBRARIES ON)
+        FetchContent_Declare(
+            PhysXSDK
+            SOURCE_DIR "${PHYSX_PATH}/compiler/public"
+            )
+        FetchContent_MakeAvailable(PhysXSDK)
+        target_link_libraries(${PROJECT_NAME} PUBLIC PhysXSDK)
+    endif()
 endif()

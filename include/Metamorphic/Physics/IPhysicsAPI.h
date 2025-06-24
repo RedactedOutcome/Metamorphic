@@ -18,6 +18,8 @@ namespace Metamorphic{
 
         virtual PhysicsAPIError Init()noexcept=0;
         virtual PhysicsAPIError Shutdown()noexcept=0;
+
+        virtual void Update()noexcept=0;
     protected:
         PhysicsAPI m_API = PhysicsAPI::None;
     };

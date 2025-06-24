@@ -54,19 +54,26 @@ namespace Metamorphic{
         }
         MORPHIC_INFO("Initialized Renderer");
 
-
+    #ifndef METMAMORPHIC_NO_PHYSICS_ENGINE
         m_Physics = std::make_unique<PhysXPhysics>();
         if(m_Physics->Init() != PhysicsAPIError::None){
             MORPHIC_ERROR("Failed to initialize Physics");
             return ApplicationError::FailedToInitializePhysics;
         }
-
+    #endif
+        
         MORPHIC_INFO("Initialized");
         return ApplicationError::None;
     }
 
     void Application::Update()noexcept{
         m_SceneManager.Update();
+    }
+    void Application::FixedUpdate()noexcept{
+        m_SceneManager.FixedUpdate();
+    #ifndef METAMORPHIC_NO_PHYSICS_ENGINE
+        m_Physics->Update();
+    #endif
     }
     void Application::LateUpdate()noexcept{
         m_SceneManager.LateUpdate();
