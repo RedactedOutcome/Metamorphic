@@ -1,5 +1,6 @@
 #include "Metamorphic/pch.h"
 #include "Metamorphic/SceneManagement/SceneManager.h"
+#include "Metamorphic/Core/Event/Events/OnBeforeApplicationExitEvent.h"
 
 namespace Metamorphic{
     void SceneManager::Init()noexcept{
@@ -7,6 +8,10 @@ namespace Metamorphic{
         m_Scenes.reserve(5);
     }
     void SceneManager::Shutdown()noexcept{
+        OnBeforeApplicationExitEvent event;
+        for(size_t i = 0; i < m_Scenes.size(); i++){
+            m_Scenes[i]->BroadcastEvent(event);
+        }
         m_Scenes.clear();
     }
     void SceneManager::Update()noexcept{

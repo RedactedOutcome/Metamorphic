@@ -74,6 +74,7 @@ set(PlatformSrc src/Platform/)
 # Rendering
 if(${MetamorphicUseDirectX12})
     target_compile_definitions(${PROJECT_NAME} PUBLIC METAMORPHIC_USE_DIRECTX12)
+    target_sources(${PROJECT_NAME} PRIVATE ${PlatformSrc}Renderers/DirectX12Renderer.cpp)
 endif()
 
 if(${MetamorphicGLEW})

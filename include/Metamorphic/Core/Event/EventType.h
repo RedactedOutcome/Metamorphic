@@ -4,6 +4,7 @@ namespace Metamorphic{
     enum class EventType{
         None,
         ApplicationExit,
+        OnBeforeApplicationExit,
         WindowMovedEvent,
         WindowResizedEvent,
         MouseMovedEvent,

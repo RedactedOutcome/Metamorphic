@@ -31,6 +31,8 @@ namespace Metamorphic{
         virtual void LateDraw()noexcept;
     public:
         GameObject* CreateGameObject() noexcept;
+
+        virtual void BroadcastEvent(Event& event)noexcept;
     public:
         void SetName(const HBuffer& name)noexcept{m_Name = name;}
         void SetName(HBuffer&& name)noexcept{m_Name = std::move(name);}

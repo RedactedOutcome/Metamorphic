@@ -42,4 +42,10 @@ namespace Metamorphic{
         if(m_Awoken)ptr->Awake();
         return ptr;
     }
+
+    void Scene::BroadcastEvent(Event& event)noexcept{
+        for(size_t i = 0; i < m_GameObjects.size(); i++){
+            m_GameObjects[i]->GetEventDispatcher();
+        }
+    }
 }
