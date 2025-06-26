@@ -14,7 +14,9 @@ public:
 };
 class SandboxApp : public Application{
 public:
-    SandboxApp()noexcept{}
+    SandboxApp()noexcept{
+        m_ApplicationName = "SandboxApp";
+    }
     ~SandboxApp()noexcept{}
 
     void AfterInitialized()noexcept override{

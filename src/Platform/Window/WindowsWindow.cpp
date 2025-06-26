@@ -135,7 +135,7 @@ namespace Metamorphic{
         m_Window = CreateWindowEx(
             0,                              // Optional window styles.
             m_ClassName,                     // Window class
-            L"ContainmentProtocol-Client",    // Window text
+            m_ClassName,    // Window text
             WS_OVERLAPPEDWINDOW,            // Window style
 
             // Size and position

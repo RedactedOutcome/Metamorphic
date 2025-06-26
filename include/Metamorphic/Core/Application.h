@@ -39,6 +39,7 @@ namespace Metamorphic{
     #endif 
         SceneManager& GetSceneManager() const noexcept{return (SceneManager&)m_SceneManager;}
     protected:
+        HBuffer m_ApplicationName="Metamorphic-Project";
         EventDispatcher m_EventDispatcher;
         std::unique_ptr<IWindow> m_Window;
         std::unique_ptr<IRenderAPI> m_Renderer;

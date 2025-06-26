@@ -2,6 +2,7 @@
 #include "Core/Application.h"
 #include "Core/Time.h"
 #include "Core/Logger.h"
+#include "Core/Core.h"
 
 /// TODO: check macros for platform specific window and renderer
 #include "Platform/Window/WindowsWindow.h"
@@ -36,7 +37,7 @@ namespace Metamorphic{
     ApplicationError Application::Init()noexcept{
         Logger::Init();
 
-        WindowProps props(1280, 720, "Hello World");
+        WindowProps props(1280, 720, m_ApplicationName);
         m_Window = std::make_unique<WindowsWindow>(std::move(props));
         WindowError error = m_Window->Create();
         if(error != WindowError::None){
