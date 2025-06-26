@@ -4,11 +4,12 @@
 using namespace Metamorphic;
 
 class CustomScene : public Scene{
-    CustomScene()noexcept{}
+public:
+    CustomScene(SceneManager* sceneManager)noexcept : Scene(sceneManager){}
     ~CustomScene()noexcept{}
 
     void Update()noexcept override{
-        SANDBOX_DEBUG("UPDATING");
+        //SANDBOX_DEBUG("UPDATING");
     }
 };
 class SandboxApp : public Application{

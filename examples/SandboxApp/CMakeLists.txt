@@ -7,6 +7,8 @@ set(CMAKE_CXX_STANDARD 17)
 file(GLOB SOURCES src/*.cpp)
 add_executable(${CMAKE_PROJECT_NAME} ${SOURCES})
 
+set(MetamorphicGameType "3D")
+set(MetamorphicNoPhysics TRUE)
 include(FetchContent)
 FetchContent_Declare(
   Metamorphic

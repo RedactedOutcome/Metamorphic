@@ -10,4 +10,5 @@ namespace Metamorphic{
 
     void IRenderAPI::PrepareScreen()noexcept{}
     void IRenderAPI::ClearDepthBuffers()noexcept{}
+    void IRenderAPI::Update()noexcept{}
 }

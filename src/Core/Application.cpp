@@ -54,7 +54,7 @@ namespace Metamorphic{
         }
         MORPHIC_INFO("Initialized Renderer");
 
-    #ifndef METMAMORPHIC_NO_PHYSICS_ENGINE
+    #ifndef METAMORPHIC_NO_PHYSICS_ENGINE
         m_Physics = std::make_unique<PhysXPhysics>();
         if(m_Physics->Init() != PhysicsAPIError::None){
             MORPHIC_ERROR("Failed to initialize Physics");
@@ -85,6 +85,7 @@ namespace Metamorphic{
     void Application::LateDraw()noexcept{
         m_Renderer->ClearDepthBuffers();
         m_SceneManager.LateDraw();
+        m_Renderer->Update();
     }
 
     void Application::Shutdown()noexcept{
@@ -93,11 +94,13 @@ namespace Metamorphic{
     #ifndef METAMORPHIC_NO_PHYSICS_ENGINE
         if(m_Physics){
             m_Physics->Shutdown();
+            m_Physics.reset();
         }
     #endif
-        if(m_Renderer)[
+        if(m_Renderer){
             m_Renderer->Shutdown();
-        ]
+            m_Renderer.reset();
+        }
         if(m_Window){
             m_Window->Destroy();
             m_Window.reset();

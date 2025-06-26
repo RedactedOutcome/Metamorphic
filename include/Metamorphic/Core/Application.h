@@ -19,6 +19,7 @@ namespace Metamorphic{
         
         ApplicationError Init()noexcept;
         void Update()noexcept;
+        void FixedUpdate()noexcept;
         void LateUpdate()noexcept;
         void Draw()noexcept;
         void LateDraw()noexcept;
@@ -35,7 +36,7 @@ namespace Metamorphic{
         IRenderAPI* GetRenderer() const noexcept{return m_Renderer.get();}
     #ifndef METAMORPHIC_NO_PHYSICS_ENGINE
         IPhysicsAPI* GetPhysicsAPI() const noexcept{return m_Physics.get();}
-    #ifndef 
+    #endif 
         SceneManager& GetSceneManager() const noexcept{return (SceneManager&)m_SceneManager;}
     protected:
         EventDispatcher m_EventDispatcher;

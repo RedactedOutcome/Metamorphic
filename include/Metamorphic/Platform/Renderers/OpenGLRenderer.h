@@ -13,5 +13,6 @@ namespace Metamorphic{
 
         void PrepareScreen() noexcept override;
         void ClearDepthBuffers()noexcept override;
+        void Update()noexcept override;
     };
 }

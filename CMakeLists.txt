@@ -9,13 +9,15 @@ set(CMAKE_CXX_STANDARD 17)
 # Get Metamorphic Core Engine Files
 file(GLOB_RECURSE SOURCES src/*.cpp)
 foreach(file ${SOURCES})
-    if(file MATCHES "/src/platform/")
+    if(file MATCHES "src/Platform/")
         list(REMOVE_ITEM SOURCES ${file})
     endif()
 endforeach()
 
-set(METAMORPHIC_LIBRARY_TYPE STATIC)
-add_library(${PROJECT_NAME} ${METAMORPHIC_LIBRARY_TYPE} ${SOURCES})
+if(NOT DEFINED MetamorphicLibraryType)
+    set(MetamorphicLibraryType STATIC)
+endif()
+add_library(${PROJECT_NAME} ${MetamorphicLibraryType} ${SOURCES})
 
 # Precompiled Headers
 target_precompile_headers(${PROJECT_NAME} PRIVATE "include/Metamorphic/pch.h")
@@ -33,15 +35,20 @@ if(${CMAKE_SYSTEM_NAME} STREQUAL "Windows")
     set(MetamorphicUseVulkan TRUE)
     set(MetamorhpicUsePhysX TRUE)
 else()
-message(FATAL "Failed to get CMake Platform")
+    message(FATAL "Failed to get CMake Platform")
 endif()
 
-# Appending src/platform/
-set(PlatformSpecificSources "")
-foreach(file IN LISTS AdditionalSources)
-    list(APPEND PlatformSpecificSources "src/platform/${file}")
-endforeach()
-target_sources(${PROJECT_NAME} PRIVATE ${PlatformSpecificSources})
+if(NOT DEFINED MetamorphicGameType)
+    message(FATAL "No Metamorphic game type specified. May either be 2D or 3D.")
+else()
+    if(${MetamorphicGameType} STREQUAL "3D")
+        target_compile_definitions(${PROJECT_NAME} PUBLIC METAMORPHIC_3D_GAME)
+    elseif(${MetamorphicGameType} STREQUAL "2D")
+        target_compile_definitions(${PROJECT_NAME} PUBLIC METAMORPHIC_2D_GAME)
+    else()
+        message(FATAL "Unsupported Metamorphic game type specified")
+    endif()
+endif()
 
 # Memory Management
 target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/libs/HBuffer/include)
@@ -61,6 +68,8 @@ FetchContent_MakeAvailable(spdlog)
 target_compile_definitions(spdlog PUBLIC SPDLOG_NO_EXCEPTIONS)
 target_link_libraries(${PROJECT_NAME} PUBLIC spdlog)
 
+set(PlatformSrc src/Platform/)
+
 # Rendering
 if(${MetamorphicGLEW})
     target_compile_definitions(${PROJECT_NAME} PUBLIC METAMORPHIC_USE_GLEW GLEW_STATIC)
@@ -71,9 +80,11 @@ endif()
 
 if(${MetamorphicUseOpenGL})
     target_link_libraries(${PROJECT_NAME} PUBLIC opengl32.lib)
+    target_sources(${PROJECT_NAME} PRIVATE ${PlatformSrc}Renderers/OpenGLRenderer.cpp)
 endif()
 
 if(${MetamorphicUseVulkan})
+    target_sources(${PROJECT_NAME} PRIVATE ${PlatformSrc}Renderers/VulkanRenderer.cpp)
     target_compile_definitions(${PROJECT_NAME} PUBLIC METAMORPHIC_USE_VULKAN)
     target_include_directories(${PROJECT_NAME} PUBLIC $ENV{VULKAN_SDK}/Include)
     target_link_directories(${PROJECT_NAME} PUBLIC $ENV{VULKAN_SDK}/Lib)
@@ -81,7 +92,7 @@ if(${MetamorphicUseVulkan})
 endif()
 
 # Physics
-if(${MetamorhpicNoPhysics})
+if(${MetamorphicNoPhysics})
     target_compile_definitions(${PROJECT_NAME} PUBLIC METAMORPHIC_NO_PHYSICS_ENGINE)
 else()
     if(${MetamorhpicUsePhysX})
@@ -99,3 +110,10 @@ else()
         target_link_libraries(${PROJECT_NAME} PUBLIC PhysXSDK)
     endif()
 endif()
+
+# Appending src/platform/ to platform specific code
+set(PlatformSpecificSources "")
+foreach(file IN LISTS AdditionalSources)
+    list(APPEND PlatformSpecificSources "src/Platform/${file}")
+endforeach()
+target_sources(${PROJECT_NAME} PRIVATE ${PlatformSpecificSources})

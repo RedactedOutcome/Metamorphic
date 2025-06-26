@@ -6,7 +6,7 @@
 namespace Metamorphic{
     /// @brief A Transform class based of RedactedOutcomes sfmath library.
     /// @tparam Vector Supported Vector types are sfmath::Vec3, sfmath::Vec2
-    template <template<typename> class Vector=sfmath::Vec3, typename T=float>
+    template <template<typename> class Vector=METAMORPHIC_DEFAULT_VECTOR_TYPE, typename T=float>
     class Transform{
     public:
         static_assert(

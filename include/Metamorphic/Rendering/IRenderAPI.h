@@ -9,7 +9,8 @@ namespace Metamorphic{
     };
     enum class RenderAPIError{
         None=0,
-        FailedToInitializeOpenGL
+        FailedToInitializeOpenGL,
+        FailedToCreateVulkanInstance
     };
     class IRenderAPI{
     public:
@@ -20,6 +21,7 @@ namespace Metamorphic{
         virtual RenderAPIError Shutdown()noexcept=0;
         virtual void PrepareScreen()noexcept=0;
         virtual void ClearDepthBuffers()noexcept=0;
+        virtual void Update()noexcept=0;
     protected:
         IWindow* m_Window = nullptr;
         RenderAPI m_RenderAPI = RenderAPI::None;
