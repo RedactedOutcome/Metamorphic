@@ -9,7 +9,6 @@ namespace Metamorphic{
         BasicMesh()noexcept{}
 
         void Create(VertexType* vertices, IndexType* indices, uint32_t vertexCount, uint32_t indexCount)noexcept{
-            
             m_IsCreated = true;
         }
         void Draw()noexcept override{
