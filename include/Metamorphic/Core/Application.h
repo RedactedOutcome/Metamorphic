@@ -16,7 +16,8 @@ namespace Metamorphic{
     public:
         Application()noexcept;
         ~Application()noexcept;
-        
+    public:
+        /// Exposed Incase you may want to write your own custom game loop
         ApplicationError Init()noexcept;
         void Update()noexcept;
         void FixedUpdate()noexcept;
@@ -31,6 +32,7 @@ namespace Metamorphic{
         /// @brief Before shutting down the program in the Run Method, only called program was initially initialized correctly
         virtual void BeforeShutdown()noexcept{}
     public:
+        HBuffer GetApplicationName() const noexcept{return m_ApplicationName;}
         EventDispatcher& GetEventDispatcher() const noexcept{return (EventDispatcher&)m_EventDispatcher;}
         IWindow* GetWindow() const noexcept{return m_Window.get();}
         IRenderAPI* GetRenderer() const noexcept{return m_Renderer.get();}
