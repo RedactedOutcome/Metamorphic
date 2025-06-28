@@ -6,12 +6,12 @@ You may also do things such as create meshes with custom integer/floating-point 
 Metamorphic is designed to be very flexible with efficiency.
 
 # CMake required build setting definitions
-MetamorphicGameType - Type type of game to build the engine for. May be either 3D or 2D
-MetamorphicReleaseType - Type type of application you are building. Release by default or Dist for publishing
+MetamorphicGameType - Type type of game to build the engine for. Supported Values [3D, 2D]
 
 # CMake optional build settings definitions
-MetamorphicNoPhysics - if defined, Metamorhpic will be compiled without any physics.
-MetamorphicLibraryType - the type of library to compile metamorphic as. currently only supports static
+MetamorphicNoPhysics - if defined, Metamorhpic will be compiled without any physics. 
+MetamorphicLibraryType - the type of library to compile metamorphic as. currently only supports static 
+MetamorphicReleaseType - Type type of application you are building. Supported Valuer [Release, Dist]. Defaults to Release if not specified
 
 # Metamorphic Game Type
 3D and 2D are completely different. Depending on the game type
