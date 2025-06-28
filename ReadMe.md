@@ -9,9 +9,9 @@ Metamorphic is designed to be very flexible with efficiency.
 MetamorphicGameType - Type type of game to build the engine for. Supported Values [3D, 2D]
 
 # CMake optional build settings definitions
-MetamorphicNoPhysics - if defined, Metamorhpic will be compiled without any physics. 
-MetamorphicLibraryType - the type of library to compile metamorphic as. currently only supports static 
-MetamorphicReleaseType - Type type of application you are building. Supported Valuer [Release, Dist]. Defaults to Release if not specified
+MetamorphicNoPhysics - if defined, Metamorhpic will be compiled without any physics.  
+MetamorphicLibraryType - the type of library to compile metamorphic as. currently only supports static  
+MetamorphicReleaseType - Type type of application you are building. Supported Valuer [Release, Dist].  Defaults to Release if not specified
 
 # Metamorphic Game Type
 3D and 2D are completely different. Depending on the game type
