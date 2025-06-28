@@ -6,7 +6,7 @@
 #ifdef METAMORPHIC_PLATFORM_WINDOWS
 int main(int argc, char** argv){
 #else
-#error Metamorphic No Supported platform
+#error Metamorphic No Supported Entry Point for this platform
 #endif
     using namespace Metamorphic;
     std::unique_ptr<Application> application(CreateApplication());
