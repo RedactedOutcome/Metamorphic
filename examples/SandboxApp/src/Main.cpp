@@ -21,7 +21,7 @@ public:
 
     void AfterInitialized()noexcept override{
         SANDBOX_DEBUG("Initialized");
-
+        
         //m_SceneManager.AddScene(Scene);
         Scene* scene = m_SceneManager.CreateScene<CustomScene>();
         scene->CreateGameObject();
