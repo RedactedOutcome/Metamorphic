@@ -29,7 +29,7 @@ target_include_directories(${PROJECT_NAME} PRIVATE include/Metamorphic/)
 # Platform Dependent Code
 set(AdditionalSources "")
 if(${CMAKE_SYSTEM_NAME} STREQUAL "Windows")
-    target_compile_definitions(${PROJECT_NAME} _WIN32_WINNT=0x0A0000 NTDDI_VERSION=0x0A000000)
+    target_compile_definitions(${PROJECT_NAME} PUBLIC _WIN32_WINNT_WIN10 _WIN32_WINNT=0x0A0000 NTDDI_VERSION=0x0A000000)
     list(APPEND AdditionalSources Window/WindowsWindow.cpp)
     set(MetamorphicUseDirectX12 TRUE)
     set(MetamorphicUseOpenGL TRUE)
@@ -37,6 +37,7 @@ if(${CMAKE_SYSTEM_NAME} STREQUAL "Windows")
     set(MetamorphicUseVulkan TRUE)
     set(MetamorhpicUsePhysX TRUE)
     set(MetamorphicUseOpenAL TRUE)
+    set(MetamorphicUseSpdlog TRUE)
 else()
     message(FATAL "Failed to get CMake Platform")
 endif()
@@ -61,15 +62,18 @@ add_subdirectory("${CMAKE_CURRENT_SOURCE_DIR}/libs/sfmath")
 target_link_libraries(${PROJECT_NAME} PUBLIC sfmath)
 
 # Logging
-set(SPDLOG_NO_EXCEPTIONS ON CACHE BOOL "" FORCE)
-set(SPDLOG_BUILD_STATIC ON)
-FetchContent_Declare(
-  spdlog
-  SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/libs/spdlog/"
-)
-FetchContent_MakeAvailable(spdlog)
-target_compile_definitions(spdlog PUBLIC SPDLOG_NO_EXCEPTIONS)
-target_link_libraries(${PROJECT_NAME} PUBLIC spdlog)
+if(DEFINED MetamorphicUseSpdlog)
+    target_compile_definitions(${PROJECT_NAME} PUBLIC METAMORPHIC_USE_SPDLOG)
+    set(SPDLOG_NO_EXCEPTIONS ON CACHE BOOL "" FORCE)
+    set(SPDLOG_BUILD_STATIC ON)
+    FetchContent_Declare(
+    spdlog
+    SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/libs/spdlog/"
+    )
+    FetchContent_MakeAvailable(spdlog)
+    target_compile_definitions(spdlog PUBLIC SPDLOG_NO_EXCEPTIONS)
+    target_link_libraries(${PROJECT_NAME} PUBLIC spdlog)
+endif()
 
 set(PlatformSrc src/Platform/)
 

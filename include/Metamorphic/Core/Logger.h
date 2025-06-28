@@ -6,25 +6,31 @@ class Logger{
 public:
     static void Init();
 public:
+#ifdef METAMORPHIC_USE_SPDLOG
     inline static std::shared_ptr<spdlog::logger>& GetCoreLogger() { return s_CoreLogger; }
     inline static std::shared_ptr<spdlog::logger>& GetSandboxLogger() { return s_SandboxLogger; }
 private:
     static std::shared_ptr<spdlog::logger> s_CoreLogger;
     static std::shared_ptr<spdlog::logger> s_SandboxLogger;
+#endif
 };
 
 #ifndef CONTAINMENT_PROTOCOL_DIST
-    #define MORPHIC_ERROR(...)	::Logger::GetCoreLogger()->error(__VA_ARGS__)
-    #define MORPHIC_WARN(...)	::Logger::GetCoreLogger()->warn(__VA_ARGS__)
-    #define MORPHIC_INFO(...)	::Logger::GetCoreLogger()->info(__VA_ARGS__)
-    #define MORPHIC_LOG(...)	::Logger::GetCoreLogger()->info(__VA_ARGS__)
-    #define MORPHIC_DEBUG(...)	::Logger::GetCoreLogger()->info(__VA_ARGS__)
-    
-    #define SANDBOX_ERROR(...)	::Logger::GetSandboxLogger()->error(__VA_ARGS__)
-    #define SANDBOX_WARN(...)	::Logger::GetSandboxLogger()->warn(__VA_ARGS__)
-    #define SANDBOX_INFO(...)	::Logger::GetSandboxLogger()->info(__VA_ARGS__)
-    #define SANDBOX_LOG(...)	::Logger::GetSandboxLogger()->info(__VA_ARGS__)
-    #define SANDBOX_DEBUG(...)	::Logger::GetSandboxLogger()->info(__VA_ARGS__)
+    #ifdef METAMORPHIC_USE_SPDLOG
+        #define MORPHIC_ERROR(...)	::Logger::GetCoreLogger()->error(__VA_ARGS__)
+        #define MORPHIC_WARN(...)	::Logger::GetCoreLogger()->warn(__VA_ARGS__)
+        #define MORPHIC_INFO(...)	::Logger::GetCoreLogger()->info(__VA_ARGS__)
+        #define MORPHIC_LOG(...)	::Logger::GetCoreLogger()->info(__VA_ARGS__)
+        #define MORPHIC_DEBUG(...)	::Logger::GetCoreLogger()->info(__VA_ARGS__)
+        
+        #define SANDBOX_ERROR(...)	::Logger::GetSandboxLogger()->error(__VA_ARGS__)
+        #define SANDBOX_WARN(...)	::Logger::GetSandboxLogger()->warn(__VA_ARGS__)
+        #define SANDBOX_INFO(...)	::Logger::GetSandboxLogger()->info(__VA_ARGS__)
+        #define SANDBOX_LOG(...)	::Logger::GetSandboxLogger()->info(__VA_ARGS__)
+        #define SANDBOX_DEBUG(...)	::Logger::GetSandboxLogger()->info(__VA_ARGS__)
+    #else
+        #error No Logging Library Specified
+    #endif
 #else
     #define MORPHIC_ERROR(...)
     #define MORPHIC_WARN(...)
