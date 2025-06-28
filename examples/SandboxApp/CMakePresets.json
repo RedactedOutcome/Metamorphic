@@ -10,7 +10,17 @@
         "name": "default",
         "hidden": false,
         "generator": "NMake Makefiles",
-        "binaryDir": "${sourceDir}/../../build/SandboxApp",
+        "binaryDir": "${sourceDir}/../../build/SandboxApp/Windows-x64",
+        "cacheVariables": {
+          "CMAKE_BUILD_TYPE": "Release",
+          "VCPKG_TARGET_TRIPLET": "x64-windows-static"
+        }
+      },
+      {
+        "name": "xbox",
+        "hidden": false,
+        "generator": "NMake Makefiles",
+        "binaryDir": "${sourceDir}/../../build/SandboxApp/Xbox",
         "cacheVariables": {
           "CMAKE_BUILD_TYPE": "Release",
           "VCPKG_TARGET_TRIPLET": "x64-windows-static"

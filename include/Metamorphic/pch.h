@@ -22,6 +22,7 @@
 #include <map>
 #include <unordered_map>
 #include <type_traits>
+#include <optional>
 
 #include <filesystem>
 

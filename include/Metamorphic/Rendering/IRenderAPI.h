@@ -10,7 +10,8 @@ namespace Metamorphic{
     enum class RenderAPIError{
         None=0,
         FailedToInitializeOpenGL,
-        FailedToCreateVulkanInstance
+        FailedToCreateVulkanInstance,
+        FailedToFindGraphicsCard
     };
     class IRenderAPI{
     public:

@@ -3,6 +3,14 @@
 #include "Metamorphic/Rendering/IRenderAPI.h"
 
 namespace Metamorphic{
+    struct QueueFamilyIndices {
+        std::optional<uint32_t> m_GraphicsFamily;
+
+        bool IsComplete()const noexcept{
+            return m_GraphicsFamily.has_value();
+        }
+    };
+
     class VulkanRenderer : public IRenderAPI{
     public:
         VulkanRenderer(IWindow* window)noexcept;
@@ -15,6 +23,11 @@ namespace Metamorphic{
         void ClearDepthBuffers()noexcept override;
         void Update()noexcept override;
     private:
+        bool IsDeviceSuitable(VkPhysicalDevice device)const noexcept;
+        QueueFamilyIndices FindQueueFamilies(VkPhysicalDevice device)const noexcept;
+    private:
         VkInstance m_Instance;
+        VkPhysicalDevice m_PhysicalDevice = VK_NULL_HANDLE;
+        VkDevice m_Device;
     };
 }

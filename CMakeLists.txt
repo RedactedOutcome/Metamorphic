@@ -26,8 +26,17 @@ target_precompile_headers(${PROJECT_NAME} PRIVATE "include/Metamorphic/pch.h")
 target_include_directories(${PROJECT_NAME} PUBLIC include/)
 target_include_directories(${PROJECT_NAME} PRIVATE include/Metamorphic/)
 
+# Release Type
+if(NOT DEFINED MetamorphicReleaseType OR MetamorphicReleaseType STREQUAL "Release")
+    target_compile_definitions(${PROJECT_NAME} PUBLIC METAMORPHIC_RELEASE)
+elseif(${MetamorphicReleaseType} STREQUAL "Dist")
+    target_compile_definitions(${PROJECT_NAME} PUBLIC METAMORPHIC_DIST)
+else()
+    message(FATAL "Unsupported Metamorphic Release Type: ${MetamorphicReleaseType}")
+endif()
 # Platform Dependent Code
 set(AdditionalSources "")
+
 if(${CMAKE_SYSTEM_NAME} STREQUAL "Windows")
     target_compile_definitions(${PROJECT_NAME} PUBLIC _WIN32_WINNT_WIN10 _WIN32_WINNT=0x0A0000 NTDDI_VERSION=0x0A000000)
     list(APPEND AdditionalSources Window/WindowsWindow.cpp)
@@ -131,6 +140,7 @@ if(${MetamorphicUseOpenAL})
 else()
     message(FATAL "Metamorphic No Sound API Specified")
 endif()
+
 # Appending src/platform/ to platform specific code
 set(PlatformSpecificSources "")
 foreach(file IN LISTS AdditionalSources)

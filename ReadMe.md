@@ -7,6 +7,7 @@ Metamorphic is designed to be very flexible with efficiency.
 
 # CMake required build setting definitions
 MetamorphicGameType - Type type of game to build the engine for. May be either 3D or 2D
+MetamorphicReleaseType - Type type of application you are building. Release by default or Dist for publishing
 
 # CMake optional build settings definitions
 MetamorphicNoPhysics - if defined, Metamorhpic will be compiled without any physics.
@@ -15,3 +16,7 @@ MetamorphicLibraryType - the type of library to compile metamorphic as. currentl
 # Metamorphic Game Type
 3D and 2D are completely different. Depending on the game type
 3D and 2D indicate what kind of vectors comprise the transform components of objects.
+
+# Release Types
+Release - For developing/debugging
+Dist - The final product. Disables logging and other debugging capabilities
