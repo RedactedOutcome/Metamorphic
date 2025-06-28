@@ -38,7 +38,7 @@ endif()
 set(AdditionalSources "")
 
 if(${CMAKE_SYSTEM_NAME} STREQUAL "Windows")
-    target_compile_definitions(${PROJECT_NAME} PUBLIC _WIN32_WINNT_WIN10 _WIN32_WINNT=0x0A0000 NTDDI_VERSION=0x0A000000)
+    target_compile_definitions(${PROJECT_NAME} PUBLIC METAMORPHIC_PLATFORM_WINDOWS _WIN32_WINNT_WIN10 _WIN32_WINNT=0x0A0000 NTDDI_VERSION=0x0A000000)
     list(APPEND AdditionalSources Window/WindowsWindow.cpp)
     set(MetamorphicUseDirectX12 TRUE)
     set(MetamorphicUseOpenGL TRUE)
