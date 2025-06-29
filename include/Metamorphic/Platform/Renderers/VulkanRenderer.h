@@ -5,9 +5,10 @@
 namespace Metamorphic{
     struct QueueFamilyIndices {
         std::optional<uint32_t> m_GraphicsFamily;
+        std::optional<uint32_t> m_PresentFamily;
 
         bool IsComplete()const noexcept{
-            return m_GraphicsFamily.has_value();
+            return m_GraphicsFamily.has_value() && m_PresentFamily.has_value();
         }
     };
 

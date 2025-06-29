@@ -12,7 +12,9 @@ namespace Metamorphic{
         FailedToInitializeOpenGL,
         FailedToCreateVulkanInstance,
         FailedToFindGraphicsCard,
-        FailedToCreatePhysicalDevice
+        FailedToCreatePhysicalDevice,
+        FailedToCreateWindowSurface,
+        FailedToFindSupportedGraphicsCard
     };
     class IRenderAPI{
     public:

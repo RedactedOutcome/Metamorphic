@@ -1,11 +1,13 @@
 #include "Metamorphic/pch.h"
 #include "Platform/Renderers/OpenGLRenderer.h"
+#include "Core/Logger.h"
 
 namespace Metamorphic{
     OpenGLRenderer::OpenGLRenderer(IWindow* window)noexcept : IRenderAPI(window){}
     OpenGLRenderer::~OpenGLRenderer()noexcept {}
 
     RenderAPIError OpenGLRenderer::Init()noexcept{
+        MORPHIC_DEBUG("Initializing OpenGLRenderer");
         m_Window->CreateOpenGLBindings();
         if(glewInit() != GLEW_OK){
             return RenderAPIError::FailedToInitializeOpenGL;

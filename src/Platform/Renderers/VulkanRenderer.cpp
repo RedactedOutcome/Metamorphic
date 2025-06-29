@@ -13,6 +13,8 @@ namespace Metamorphic{
     VulkanRenderer::~VulkanRenderer()noexcept{}
 
     RenderAPIError VulkanRenderer::Init()noexcept{
+        MORPHIC_DEBUG("Initializing Vulkan Renderer");
+        MORPHIC_DEBUG("Creating VkInstance");
         VkApplicationInfo info{};
         info.sType = VK_STRUCTURE_TYPE_APPLICATION_INFO;
         info.pApplicationName = "Metamorphic-Project";
@@ -37,6 +39,7 @@ namespace Metamorphic{
         }
 
         /// Create Window Surface
+        MORPHIC_DEBUG("Creating Window Surface");
     #ifdef METAMORPHIC_PLATFORM_WINDOWS
         VkWin32SurfaceCreateInfoKHR surfaceCreateInfo{};
         surfaceCreateInfo.sType = VK_STRUCTURE_TYPE_WIN32_SURFACE_CREATE_INFO_KHR;
@@ -45,10 +48,15 @@ namespace Metamorphic{
         surfaceCreateInfo.hwnd = window->GetWindow();
         surfaceCreateInfo.hinstance = window->GetInstance();
 
-        MORPHIC_DEBUG("Test");
+        if(!vkCreateWin32SurfaceKHR(m_Instance, &surfaceCreateInfo, nullptr, &m_Surface) != VK_SUCCESS){
+            return RenderAPIError::FailedToCreateWindowSurface;
+        }
+
+        MORPHIC_DEBUG("Created KHR Surface");
     #else
         #error Unsupported platform for vulkan renderer
     #endif
+        MORPHIC_DEBUG("Picking Physical Device");
         /// Pick Physical Device
         uint32_t deviceCount = 0;
         vkEnumeratePhysicalDevices(m_Instance, &deviceCount, nullptr);
@@ -56,6 +64,7 @@ namespace Metamorphic{
         if(deviceCount == 0){
             return RenderAPIError::FailedToFindGraphicsCard;
         }
+        MORPHIC_DEBUG("Attempting to find 1 supported out of {0} graphics cards", deviceCount);
         std::vector<VkPhysicalDevice> devices(deviceCount);
         vkEnumeratePhysicalDevices(m_Instance, &deviceCount, devices.data());
 
@@ -66,9 +75,18 @@ namespace Metamorphic{
                 break;
             }
         }
+        if(m_PhysicalDevice == VK_NULL_HANDLE){
+            MORPHIC_ERROR("Failed to find physical device");
+            return RenderAPIError::FailedToFindGraphicsCard;
+        }
+        MORPHIC_DEBUG("Creating Physical Device");
         /// Create Logical Device
         QueueFamilyIndices indices = FindQueueFamilies(m_PhysicalDevice);
-
+        MORPHIC_DEBUG("T1");
+        if(!indices.IsComplete()){
+            return RenderAPIError::FailedToFindSupportedGraphicsCard;
+        }
+        MORPHIC_DEBUG("T2");
         VkDeviceQueueCreateInfo queueCreateInfo{};
         queueCreateInfo.sType = VK_STRUCTURE_TYPE_DEVICE_QUEUE_CREATE_INFO;
         queueCreateInfo.queueFamilyIndex = indices.m_GraphicsFamily.value();
@@ -116,6 +134,12 @@ namespace Metamorphic{
 
         int i = 0;
         for(const auto& queueFamily : queueFamilies){
+            VkBool32 presentSupport = false;
+            vkGetPhysicalDeviceSurfaceSupportKHR(device, i, m_Surface, &presentSupport);
+            if (presentSupport) {
+                indices.m_PresentFamily = i;
+            }
+            
             if(queueFamily.queueFlags & VK_QUEUE_GRAPHICS_BIT){
                 indices.m_GraphicsFamily = i;
             }
@@ -126,8 +150,13 @@ namespace Metamorphic{
         return indices;
     }
     RenderAPIError VulkanRenderer::Shutdown()noexcept{
+        vkDestroySurfaceKHR(m_Instance, m_Surface, nullptr);
         vkDestroyDevice(m_Device, nullptr);
         vkDestroyInstance(m_Instance, nullptr);
+        m_Surface = VK_NULL_HANDLE;
+        m_Device = VK_NULL_HANDLE;
+        m_PhysicalDevice = VK_NULL_HANDLE;
+        m_Instance = VK_NULL_HANDLE;
         return RenderAPIError::None;
     }
 
