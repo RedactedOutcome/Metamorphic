@@ -1,7 +1,13 @@
 #include "Metamorphic/pch.h"
 #include "Platform/Renderers/VulkanRenderer.h"
+#include "Core/Logger.h"
 #include "Core/Core.h"
 
+#ifdef METAMORPHIC_PLATFORM_WINDOWS
+#include "Platform/Window/WindowsWindow.h"
+#else
+#error Unsupported platform for vulkan renderer
+#endif
 namespace Metamorphic{
     VulkanRenderer::VulkanRenderer(IWindow* window)noexcept : IRenderAPI(window){}
     VulkanRenderer::~VulkanRenderer()noexcept{}
@@ -20,9 +26,29 @@ namespace Metamorphic{
         instanceCreateInfo.pApplicationInfo = &info;
         instanceCreateInfo.enabledLayerCount = 0;
 
+        uint32_t extensionCount = 0;
+        const char* extensions[2] = {"VK_KHR_surface", "VK_KHR_win32_surface"};
+
+        instanceCreateInfo.enabledExtensionCount = extensionCount;
+        instanceCreateInfo.ppEnabledExtensionNames = extensions;
+
         if(vkCreateInstance(&instanceCreateInfo, nullptr, &m_Instance) != VK_SUCCESS){
             return RenderAPIError::FailedToCreateVulkanInstance;
         }
+
+        /// Create Window Surface
+    #ifdef METAMORPHIC_PLATFORM_WINDOWS
+        VkWin32SurfaceCreateInfoKHR surfaceCreateInfo{};
+        surfaceCreateInfo.sType = VK_STRUCTURE_TYPE_WIN32_SURFACE_CREATE_INFO_KHR;
+
+        WindowsWindow* window = reinterpret_cast<WindowsWindow*>(m_Window);
+        surfaceCreateInfo.hwnd = window->GetWindow();
+        surfaceCreateInfo.hinstance = window->GetInstance();
+
+        MORPHIC_DEBUG("Test");
+    #else
+        #error Unsupported platform for vulkan renderer
+    #endif
         /// Pick Physical Device
         uint32_t deviceCount = 0;
         vkEnumeratePhysicalDevices(m_Instance, &deviceCount, nullptr);
@@ -69,6 +95,9 @@ namespace Metamorphic{
     #else
         createInfo.enabledLayerCount = 0;
     #endif
+        if (vkCreateDevice(m_PhysicalDevice, &createInfo, nullptr, &m_Device) != VK_SUCCESS) {
+            return RenderAPIError::FailedToCreatePhysicalDevice;
+        }
         return RenderAPIError::None;
     }
     
@@ -97,6 +126,7 @@ namespace Metamorphic{
         return indices;
     }
     RenderAPIError VulkanRenderer::Shutdown()noexcept{
+        vkDestroyDevice(m_Device, nullptr);
         vkDestroyInstance(m_Instance, nullptr);
         return RenderAPIError::None;
     }

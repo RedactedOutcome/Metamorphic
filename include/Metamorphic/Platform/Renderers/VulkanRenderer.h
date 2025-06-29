@@ -26,8 +26,9 @@ namespace Metamorphic{
         bool IsDeviceSuitable(VkPhysicalDevice device)const noexcept;
         QueueFamilyIndices FindQueueFamilies(VkPhysicalDevice device)const noexcept;
     private:
-        VkInstance m_Instance;
+        VkInstance m_Instance = VK_NULL_HANDLE;
+        VkSurfaceKHR m_Surface = VK_NULL_HANDLE;
         VkPhysicalDevice m_PhysicalDevice = VK_NULL_HANDLE;
-        VkDevice m_Device;
+        VkDevice m_Device = VK_NULL_HANDLE;
     };
 }

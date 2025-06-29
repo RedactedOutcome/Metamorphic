@@ -11,7 +11,8 @@ namespace Metamorphic{
         None=0,
         FailedToInitializeOpenGL,
         FailedToCreateVulkanInstance,
-        FailedToFindGraphicsCard
+        FailedToFindGraphicsCard,
+        FailedToCreatePhysicalDevice
     };
     class IRenderAPI{
     public:

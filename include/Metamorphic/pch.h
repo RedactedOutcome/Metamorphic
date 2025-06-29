@@ -63,9 +63,9 @@
     #include <Windows.h>
     #undef APIENTRY  // Undefine conflicting macro
 
-    #ifdef UNICODE_WAS_UNDEFINED
-    #undef UNICODE
-    #endif
+    //#ifdef UNICODE_WAS_UNDEFINED
+    //#undef UNICODE
+    //#endif
 #elif
 #error Unsupported Metamorphic Platform
 #endif
