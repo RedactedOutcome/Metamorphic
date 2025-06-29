@@ -30,3 +30,8 @@ Metamorphic already has include directories specified that get propagated to pro
 
 # Building a library for outside of CMake development
 Possible but I wont be documentating it for now. Just look at all necessary CMake project definitions needed through the CMakeLists.txt
+
+# Automation
+1 - Project Generation  
+You may run the scripts/GenerateProject.py to automatically generate a project using Metamorphic 
+depending on the desired platform.

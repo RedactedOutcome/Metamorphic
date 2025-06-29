@@ -48,7 +48,7 @@ if(${CMAKE_SYSTEM_NAME} STREQUAL "Windows")
     set(MetamorphicUseOpenAL TRUE)
     set(MetamorphicUseSpdlog TRUE)
 else()
-    message(FATAL "Failed to get CMake Platform")
+    message(FATAL "Failed to get supported Metamorphic CMake Platform")
 endif()
 
 if(NOT DEFINED MetamorphicGameType)
