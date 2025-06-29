@@ -28,7 +28,7 @@ namespace Metamorphic{
         instanceCreateInfo.pApplicationInfo = &info;
         instanceCreateInfo.enabledLayerCount = 0;
 
-        uint32_t extensionCount = 0;
+        uint32_t extensionCount = 2;
         const char* extensions[2] = {"VK_KHR_surface", "VK_KHR_win32_surface"};
 
         instanceCreateInfo.enabledExtensionCount = extensionCount;
@@ -48,7 +48,10 @@ namespace Metamorphic{
         surfaceCreateInfo.hwnd = window->GetWindow();
         surfaceCreateInfo.hinstance = window->GetInstance();
 
-        if(!vkCreateWin32SurfaceKHR(m_Instance, &surfaceCreateInfo, nullptr, &m_Surface) != VK_SUCCESS){
+        if(vkCreateWin32SurfaceKHR(m_Instance, &surfaceCreateInfo, nullptr, &m_Surface) != VK_SUCCESS){
+            return RenderAPIError::FailedToCreateWindowSurface;
+        }
+        if(m_Surface == VK_NULL_HANDLE){
             return RenderAPIError::FailedToCreateWindowSurface;
         }
 
@@ -82,11 +85,9 @@ namespace Metamorphic{
         MORPHIC_DEBUG("Creating Physical Device");
         /// Create Logical Device
         QueueFamilyIndices indices = FindQueueFamilies(m_PhysicalDevice);
-        MORPHIC_DEBUG("T1");
         if(!indices.IsComplete()){
             return RenderAPIError::FailedToFindSupportedGraphicsCard;
         }
-        MORPHIC_DEBUG("T2");
         VkDeviceQueueCreateInfo queueCreateInfo{};
         queueCreateInfo.sType = VK_STRUCTURE_TYPE_DEVICE_QUEUE_CREATE_INFO;
         queueCreateInfo.queueFamilyIndex = indices.m_GraphicsFamily.value();
