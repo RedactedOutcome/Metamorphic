@@ -1,7 +1,5 @@
 #pragma once 
 
-#include "Core/PlatformDetection.h"
-
 /// @brief C++17 standard library
 #include <iostream>
 #include <fstream>
@@ -23,6 +21,7 @@
 #include <unordered_map>
 #include <type_traits>
 #include <optional>
+#include <set>
 
 #include <filesystem>
 

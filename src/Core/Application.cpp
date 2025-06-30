@@ -45,14 +45,13 @@ namespace Metamorphic{
             return ApplicationError::FailedToCreateWindow;
         }
         m_Window->SetEventDispatcher(&m_EventDispatcher);
-        m_Window->Show();
-        MORPHIC_INFO("Created Window");
 
         m_Renderer = std::make_unique<VulkanRenderer>(m_Window.get());
         if(m_Renderer->Init() != RenderAPIError::None){
             MORPHIC_ERROR("Failed to initialize Renderer");
             return ApplicationError::FailedToInitializeRenderer;
         }
+        m_Window->Show();
         MORPHIC_INFO("Initialized Renderer");
 
     #ifndef METAMORPHIC_NO_PHYSICS_ENGINE
@@ -63,7 +62,7 @@ namespace Metamorphic{
         }
     #endif
         
-        MORPHIC_INFO("Initialized");
+        MORPHIC_INFO("Initialized Metamorphic");
         return ApplicationError::None;
     }
 

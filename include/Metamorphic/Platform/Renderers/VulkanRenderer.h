@@ -24,6 +24,7 @@ namespace Metamorphic{
         void ClearDepthBuffers()noexcept override;
         void Update()noexcept override;
     private:
+        RenderAPIError CreateDevice()noexcept;
         bool IsDeviceSuitable(VkPhysicalDevice device)const noexcept;
         QueueFamilyIndices FindQueueFamilies(VkPhysicalDevice device)const noexcept;
     private:
@@ -31,5 +32,6 @@ namespace Metamorphic{
         VkSurfaceKHR m_Surface = VK_NULL_HANDLE;
         VkPhysicalDevice m_PhysicalDevice = VK_NULL_HANDLE;
         VkDevice m_Device = VK_NULL_HANDLE;
+        VkQueue m_PresentQueue = VK_NULL_HANDLE;
     };
 }

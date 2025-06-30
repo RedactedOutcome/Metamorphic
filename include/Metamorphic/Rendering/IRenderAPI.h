@@ -2,6 +2,8 @@
 
 #include "IWindow.h"
 
+#include "Metamorphic/Rendering/Mesh/TexturedMeshData.h"
+
 namespace Metamorphic{
     enum class RenderAPI{
         None=0,
@@ -26,8 +28,10 @@ namespace Metamorphic{
         virtual void PrepareScreen()noexcept=0;
         virtual void ClearDepthBuffers()noexcept=0;
         virtual void Update()noexcept=0;
+        
     protected:
         IWindow* m_Window = nullptr;
         RenderAPI m_RenderAPI = RenderAPI::None;
+        std::vector<uint32_t> m_MeshIds;
     };
 }

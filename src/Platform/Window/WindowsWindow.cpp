@@ -89,6 +89,7 @@ namespace Metamorphic{
 
     WindowError WindowsWindow::Create()noexcept{
         if(m_IsCreated) return WindowError::AlreadyCreated;
+        MORPHIC_DEBUG("Creating Windows Window");
         m_HInstance = GetModuleHandle(nullptr);
 
         if(m_ClassName == nullptr){

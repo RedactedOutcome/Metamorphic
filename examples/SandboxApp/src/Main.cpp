@@ -5,12 +5,22 @@ using namespace Metamorphic;
 
 class CustomScene : public Scene{
 public:
-    CustomScene(SceneManager* sceneManager)noexcept : Scene(sceneManager){}
+    CustomScene(SceneManager* sceneManager)noexcept : Scene(sceneManager){
+        GameObject* obj = CreateGameObject();
+        for(size_t i = 0; i < 5; i++){
+            CreateGameObject();
+        }
+
+        m_MeshData.SetBufferTypes(BufferType::Float, BufferType::UInt32);
+    }
     ~CustomScene()noexcept{}
 
-    void Update()noexcept override{
+    void Draw()noexcept override{
         //SANDBOX_DEBUG("UPDATING");
+
     }
+private:
+    TexturedMeshData m_MeshData;
 };
 class SandboxApp : public Application{
 public:

@@ -39,7 +39,10 @@ namespace Metamorphic{
         GameObject* ptr = object.get();
         m_GameObjects.emplace_back(std::move(object));
 
-        if(m_Awoken)ptr->Awake();
+        if(m_Awoken){
+            ptr->Awake();
+            ptr->Start();
+        }
         return ptr;
     }
 
