@@ -16,3 +16,13 @@
 #else
     #define METAMORPHIC_DEFAULT_VECTOR_TYPE sfmath::Vec2
 #endif
+
+#ifdef METAMORPHIC_STATIC
+    #define METAMORPHIC_API
+#else
+    #ifdef METAMORPHIC_EXPORTS
+        #define METAMORPHIC_API __declspec(dllexport)
+    #else
+        #define METAMORPHIC_API __declspec(dllimport)
+    #endif
+#endif
