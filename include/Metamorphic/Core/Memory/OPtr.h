@@ -1,6 +1,7 @@
 #pragma once
 
 /// @brief A class that holds a pointer to type T but allows control of ownership manually or dynamically
+/// @brief not a reference counted system
 /// @tparam T 
 template <typename T>
 class OPtr{
