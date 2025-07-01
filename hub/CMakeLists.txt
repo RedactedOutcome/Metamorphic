@@ -1,4 +1,28 @@
-CMAKE_MINIMUM_REQUIRED_VERSION(VERSION 3.19.2)
-project("Metamorphic-Editor");
+cmake_minimum_required(VERSION 3.19.2)
+project("Metamorphic-Hub")
 
-message(FATAL "Maybe one day we will have an editor")
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_STANDARD 17)
+
+file(GLOB SOURCES src/*.cpp)
+add_executable(${CMAKE_PROJECT_NAME} ${SOURCES})
+
+# Metamorphic Settings
+set(MetamorphicGameType "3D")
+set(MetamorphicNoPhysics TRUE)
+
+# Metamorphic
+include(FetchContent)
+FetchContent_Declare(
+  Metamorphic
+  SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/../../"
+)
+FetchContent_MakeAvailable(Metamorphic)
+target_link_libraries(${CMAKE_PROJECT_NAME} PUBLIC Metamorphic)
+
+# Run Commands
+add_custom_target(run
+  COMMAND ${CMAKE_PROJECT_NAME}
+  COMMENT "Running ${CMAKE_PROJECT_NAME}"
+  WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/../../"
+)

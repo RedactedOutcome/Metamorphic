@@ -17,6 +17,13 @@ endforeach()
 if(NOT DEFINED MetamorphicLibraryType)
     set(MetamorphicLibraryType STATIC)
 endif()
+
+if("${MetamorphicLibraryType}" STREQUAL "Dynamic")
+    target_compile_definitions(${PROJECT_NAME} PRIVATE METAMORPHIC_EXPORTS)
+elseif("${MetamorphicLibraryType}" STREQUAL "Static")
+    target_compile_definitions(${PROJECT_NAME} PUBLIC METAMORPHIC_STATIC)
+endif()
+
 add_library(${PROJECT_NAME} ${MetamorphicLibraryType} ${SOURCES})
 
 # Precompiled Headers
