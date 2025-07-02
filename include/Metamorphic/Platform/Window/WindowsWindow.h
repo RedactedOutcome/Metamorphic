@@ -3,7 +3,7 @@
 #include "Metamorphic/Rendering/IWindow.h"
 
 namespace Metamorphic{
-    class WindowsWindow : public IWindow{
+    class METAMORPHIC_API WindowsWindow : public IWindow{
     public:
         WindowsWindow()noexcept;
         WindowsWindow(const WindowProps& props)noexcept;

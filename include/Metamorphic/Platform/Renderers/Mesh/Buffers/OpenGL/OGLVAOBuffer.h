@@ -3,7 +3,7 @@
 #include "Metamorphic/Rendering/Mesh/Buffers/IGPUBuffer.h"
 
 namespace Metamorphic{
-    class OGLVAOBuffer : public IGPUBuffer{
+    class METAMORPHIC_API OGLVAOBuffer : public IGPUBuffer{
         
     }
 }

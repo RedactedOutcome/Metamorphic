@@ -3,7 +3,7 @@
 #include "Metamorphic/Physics/IPhysicsAPI.h"
 
 namespace Metamorphic{
-    class PhysXPhysics : public IPhysicsAPI{
+    class METAMORPHIC_API PhysXPhysics : public IPhysicsAPI{
     public:
         PhysXPhysics()noexcept;
         ~PhysXPhysics()noexcept override;

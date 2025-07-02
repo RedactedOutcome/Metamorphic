@@ -2,10 +2,11 @@
 
 #include "Metamorphic/pch.h"
 #include "Metamorphic/Core/Event/EventDispatcher.h"
+#include "Metamorphic/Core/Core.h"
 
 namespace Metamorphic{
     class GameObject;
-    class Component{
+    class METAMORPHIC_API Component{
     public:
         Component(GameObject* gameObject)noexcept;
         ~Component()noexcept;

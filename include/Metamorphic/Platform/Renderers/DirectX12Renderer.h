@@ -3,7 +3,7 @@
 #include "Metamorphic/Rendering/IRenderAPI.h"
 
 namespace Metamorphic{
-    class DirectX12Renderer : public IRenderAPI{
+    class METAMORPHIC_API DirectX12Renderer : public IRenderAPI{
     public:
         DirectX12Renderer(IWindow* window)noexcept;
         ~DirectX12Renderer()noexcept override;

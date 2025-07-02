@@ -1,9 +1,10 @@
 #pragma once
 
 #include "Metamorphic/pch.h"
+#include "Metamorphic/Core.h"
 
 namespace Metamorphic{
-    class Timer{
+    class Timer METAMORPHIC_API{
     public:
         void Stop()noexcept;
 

@@ -3,7 +3,7 @@
 #include "../Component.h"
 
 namespace Metamorphic{
-    class Camera : public Component{
+    class METAMORPHIC_API Camera : public Component{
     public:
         Camera()noexcept;
 

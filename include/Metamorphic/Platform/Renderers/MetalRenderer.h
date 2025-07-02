@@ -3,7 +3,7 @@
 #include "Metamorphic/Rendering/IRenderAPI.h"
 
 namespace Metamorphic{
-    class MetalRenderer : public IRenderAPI{
+    class METAMORPHIC_API MetalRenderer : public IRenderAPI{
     public:
         MetalRenderer(IWindow* window)noexcept;
         ~MetalRenderer()noexcept override;

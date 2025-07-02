@@ -5,7 +5,7 @@
 #include "Metamorphic/Core/Event/EventDispatcher.h"
 
 namespace Metamorphic{
-    class GameObject{
+    class METAMORPHIC_API GameObject{
     public:
         GameObject()noexcept;
         ~GameObject()noexcept;

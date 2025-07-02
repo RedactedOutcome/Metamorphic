@@ -1,7 +1,9 @@
 #pragma once
 
+#include "Metamorphic/Core/Core.h"
+
 namespace Metamorphic{
-    class ScreenGui{
+    class METAMORPHIC_API ScreenGui{
     public:
         ScreenGui()noexcept;
         ~ScreenGui()noexcept;

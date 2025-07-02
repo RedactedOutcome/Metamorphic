@@ -3,7 +3,7 @@
 #include "Metamorphic/Rendering/IRenderAPI.h"
 
 namespace Metamorphic{
-    class OpenGLRenderer : public IRenderAPI{
+    class METAMORPHIC_API OpenGLRenderer : public IRenderAPI{
     public:
         OpenGLRenderer(IWindow* window)noexcept;
         ~OpenGLRenderer()noexcept override;

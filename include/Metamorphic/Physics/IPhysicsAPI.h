@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Metamorphic/pch.h"
+#include "Metamorphic/Core/Core.h"
 
 namespace Metamorphic{
     enum class PhysicsAPI{
@@ -11,7 +12,7 @@ namespace Metamorphic{
     enum class PhysicsAPIError{
         None=0
     };
-    class IPhysicsAPI{
+    class METAMORPHIC_API IPhysicsAPI{
     public:
         IPhysicsAPI()noexcept;
         virtual ~IPhysicsAPI()noexcept;

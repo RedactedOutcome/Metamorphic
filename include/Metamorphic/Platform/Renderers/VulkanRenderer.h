@@ -12,7 +12,7 @@ namespace Metamorphic{
         }
     };
 
-    class VulkanRenderer : public IRenderAPI{
+    class METAMORPHIC_API VulkanRenderer : public IRenderAPI{
     public:
         VulkanRenderer(IWindow* window)noexcept;
         ~VulkanRenderer()noexcept override;
