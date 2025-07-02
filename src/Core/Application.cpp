@@ -6,8 +6,13 @@
 
 /// TODO: check macros for platform specific window and renderer
 #include "Platform/Window/WindowsWindow.h"
-#include "Platform/Renderers/OpenGLRenderer.h"
-#include "Platform/Renderers/VulkanRenderer.h"
+
+/// @brief Rendering
+#include "Platform/Rendering/Renderers/OpenGLRenderer.h"
+#include "Platform/Rendering/Renderers/VulkanRenderer.h"
+#include "Platform/Rendering/Renderers/MetalRenderer.h"
+#include "Platform/Rendering/Renderers/DirectX12Renderer.h"
+
 #include "Platform/Physics/PhysX/PhysXPhysics.h"
 
 namespace Metamorphic{
