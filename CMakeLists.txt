@@ -15,16 +15,18 @@ foreach(file ${SOURCES})
 endforeach()
 
 if(NOT DEFINED MetamorphicLibraryType)
-    set(MetamorphicLibraryType STATIC)
-endif()
-
-if("${MetamorphicLibraryType}" STREQUAL "Dynamic")
-    target_compile_definitions(${PROJECT_NAME} PRIVATE METAMORPHIC_EXPORTS)
-elseif("${MetamorphicLibraryType}" STREQUAL "Static")
-    target_compile_definitions(${PROJECT_NAME} PUBLIC METAMORPHIC_STATIC)
+    set(MetamorphicLibraryType "STATIC")
 endif()
 
 add_library(${PROJECT_NAME} ${MetamorphicLibraryType} ${SOURCES})
+
+if("${MetamorphicLibraryType}" STREQUAL "DYNAMIC")
+    target_compile_definitions(${PROJECT_NAME} PRIVATE METAMORPHIC_EXPORTS)
+elseif("${MetamorphicLibraryType}" STREQUAL "STATIC")
+    target_compile_definitions(${PROJECT_NAME} PUBLIC METAMORPHIC_STATIC)
+else()
+    message(FATAL "Metamorphic Unsupported Type ${MetamorphicLibraryType}")
+endif()
 
 # Precompiled Headers
 target_precompile_headers(${PROJECT_NAME} PRIVATE "include/Metamorphic/pch.h")

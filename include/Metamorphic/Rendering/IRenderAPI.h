@@ -1,8 +1,7 @@
 #pragma once
 
 #include "IWindow.h"
-
-#include "Metamorphic/Rendering/Mesh/TexturedMeshData.h"
+#include "Mesh/Buffers/IGPUBuffer.h"
 
 namespace Metamorphic{
     enum class RenderAPI{
@@ -28,7 +27,12 @@ namespace Metamorphic{
         virtual void PrepareScreen()noexcept=0;
         virtual void ClearDepthBuffers()noexcept=0;
         virtual void Update()noexcept=0;
-        
+    public:
+        //void AllocateBufferData(IGPUBuffer* output, void* meta)noexcept;
+    public:
+        IWindow* GetWindow()const noexcept{return m_Window;}
+        RenderAPI GetRenderAPI()const noexcept{return m_RenderAPI;}
+        const std::vector<uint32_t>& GetMeshIds()const noexcept{return m_MeshIds;}
     protected:
         IWindow* m_Window = nullptr;
         RenderAPI m_RenderAPI = RenderAPI::None;

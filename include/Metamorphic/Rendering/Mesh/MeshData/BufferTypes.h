@@ -1,7 +1,10 @@
 #pragma once
 
 namespace Metamorphic{
-    enum class BufferType{
+    enum class BufferUsage{
+        None=0
+    };
+    enum class BufferDataType{
         Float = 0,
         UInt8,
         Int8,

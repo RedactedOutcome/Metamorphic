@@ -2,6 +2,7 @@
 
 #include "Metamorphic/Core/Event/EventDispatcher.h"
 #include "WindowProps.h"
+#include "Metamorphic/Core/Core.h"
 
 namespace Metamorphic{
     enum class WindowError : uint8_t{
@@ -11,7 +12,7 @@ namespace Metamorphic{
         FailedToCreateWideString,
         FailedToSetPixelFormat
     };
-    class IWindow{
+    class METAMORPHIC_API IWindow{
     public:
         IWindow()noexcept;
         IWindow(const WindowProps& props)noexcept;

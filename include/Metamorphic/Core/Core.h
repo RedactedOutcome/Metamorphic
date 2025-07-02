@@ -18,7 +18,7 @@
 #endif
 
 #ifdef METAMORPHIC_STATIC
-    #define METAMORPHIC_API
+    #define METAMORPHIC_API 
 #else
     #ifdef METAMORPHIC_EXPORTS
         #define METAMORPHIC_API __declspec(dllexport)

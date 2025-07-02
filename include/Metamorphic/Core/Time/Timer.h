@@ -4,7 +4,7 @@
 #include "Metamorphic/Core.h"
 
 namespace Metamorphic{
-    class Timer METAMORPHIC_API{
+    class METAMORPHIC_API Timer{
     public:
         void Stop()noexcept;
 

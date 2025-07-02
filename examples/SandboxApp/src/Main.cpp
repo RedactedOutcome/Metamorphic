@@ -11,7 +11,8 @@ public:
             CreateGameObject();
         }
 
-        m_MeshData.SetBufferTypes(BufferType::Float, BufferType::UInt32);
+        m_MeshData.SetBufferDataTypes(BufferDataType::Float, BufferDataType::UInt32);
+        m_Mesh.SetMeshData(&m_MeshData);
     }
     ~CustomScene()noexcept{}
 
@@ -20,7 +21,8 @@ public:
 
     }
 private:
-    TexturedMeshData m_MeshData;
+    MeshData m_MeshData;
+    BasicMesh m_Mesh;
 };
 class SandboxApp : public Application{
 public:
