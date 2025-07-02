@@ -178,7 +178,7 @@ namespace Metamorphic{
     }
 
     void VulkanRenderer::PrepareScreen() noexcept{
-
+        
     }
     void VulkanRenderer::ClearDepthBuffers()noexcept{
 
