@@ -1,5 +1,6 @@
 #pragma once
 
+
 namespace Metamorphic{
     enum class BufferUsage{
         None=0
@@ -12,5 +13,10 @@ namespace Metamorphic{
         Int16,
         UInt32,
         Int32
+    };
+    struct BufferCreateData{
+        BufferDataType m_Type;
+        BufferUsage m_Usage;
+        size_t size;
     };
 }

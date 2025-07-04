@@ -37,5 +37,6 @@ namespace Metamorphic{
         IWindow* m_Window = nullptr;
         RenderAPI m_RenderAPI = RenderAPI::None;
         std::vector<uint32_t> m_MeshIds;
+        std::vector<GPUBufferVTable> m_GPUVTables;
     };
 }

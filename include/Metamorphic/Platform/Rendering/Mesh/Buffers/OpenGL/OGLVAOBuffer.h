@@ -9,10 +9,10 @@ namespace Metamorphic{
         OGLVAOBuffer()noexcept;
         ~OGLVAOBuffer()noexcept override;
 
-        void Bind()noexcept override;
-        void Create()noexcept override;
-        void CleanUp()noexcept override;
-
+        void Bind()noexcept;
+        void Create()noexcept;
+        void CleanUp()noexcept;
+        
         void UploadData(const void* data, size_t size, BufferDataType type, void* meta)noexcept;
     private:
         uint32_t GetVaoId() const noexcept;

@@ -1,6 +1,7 @@
 #include "Metamorphic/pch.h"
 #include "Rendering/IRenderAPI.h"
 
+
 namespace Metamorphic{
     IRenderAPI::IRenderAPI(IWindow* window) noexcept : m_Window(window), m_RenderAPI(RenderAPI::OpenGL){}
     IRenderAPI::~IRenderAPI()noexcept{}

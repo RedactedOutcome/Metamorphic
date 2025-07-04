@@ -134,6 +134,7 @@ namespace Metamorphic{
         createInfo.pQueueCreateInfos = queueCreateInfos.data();
         
         vkGetDeviceQueue(m_Device, indices.m_PresentFamily.value(), 0, &m_PresentQueue);
+
         return RenderAPIError::None;
     }
     bool VulkanRenderer::IsDeviceSuitable(VkPhysicalDevice device)const noexcept{

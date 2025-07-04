@@ -2,7 +2,7 @@
 
 #include "Metamorphic/pch.h"
 #include "Metamorphic/Core/Core.h"
-#include "BufferTypes.h"
+#include "../Buffers/BufferData.h"
 
 namespace Metamorphic{
     class METAMORPHIC_API MeshData{
