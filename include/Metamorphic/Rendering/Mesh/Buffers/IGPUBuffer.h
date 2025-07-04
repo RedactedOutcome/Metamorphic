@@ -2,8 +2,10 @@
 
 #include "BufferData.h"
 #include "Metamorphic/Core/Core.h"
+#include "Metamorphic/pch.h"
 
 namespace Metamorphic{
+    class IGPUBuffer;
     struct GPUBufferVTable{
         std::function<void(IGPUBuffer*)> m_Bind;
         std::function<void(IGPUBuffer*)> m_Create;
@@ -14,7 +16,6 @@ namespace Metamorphic{
     public:
         IGPUBuffer()noexcept;
         virtual ~IGPUBuffer()noexcept;
-
     public:
         void* GetMetadata()const noexcept{return m_Metadata;}
         BufferDataType GetBufferDataType() const noexcept{return m_DataType;}
