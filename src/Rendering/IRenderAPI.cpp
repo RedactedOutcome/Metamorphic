@@ -12,4 +12,12 @@ namespace Metamorphic{
     void IRenderAPI::PrepareScreen()noexcept{}
     void IRenderAPI::ClearDepthBuffers()noexcept{}
     void IRenderAPI::Update()noexcept{}
+
+
+    uint32_t IRenderAPI::GenerateShaderId()noexcept{
+        return 0;
+    }
+    std::unique_ptr<Shader> IRenderAPI::CreateShader()noexcept{
+        return nullptr;
+    }
 }

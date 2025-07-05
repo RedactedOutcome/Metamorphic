@@ -1,9 +1,10 @@
 #pragma once
 
 #include "Metamorphic/pch.h"
+#include "Metamorphic/Core/Core.h"
 
 namespace Metamorphic{
-    class ShaderData{
+    class METAMORPHIC_API ShaderData{
     public:
         ShaderData()noexcept;
         ShaderData(HBuffer&& vertexShaderData, HBuffer&& fragmentShaderData)noexcept;

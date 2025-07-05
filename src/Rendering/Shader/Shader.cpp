@@ -10,4 +10,5 @@ namespace Metamorphic{
     void Shader::Stop()noexcept{}
 
     void Shader::SetRenderAPI(IRenderAPI* renderAPI)noexcept{m_RenderAPI = renderAPI;}
+    void Shader::SetShaderData(ShaderData* shaderData)noexcept{m_ShaderData = shaderData;}
 }

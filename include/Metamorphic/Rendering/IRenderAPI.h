@@ -2,6 +2,7 @@
 
 #include "IWindow.h"
 #include "Mesh/Buffers/IGPUBuffer.h"
+#include "Shader/Shader.h"
 
 namespace Metamorphic{
     enum class RenderAPI{
@@ -29,6 +30,7 @@ namespace Metamorphic{
         virtual void Update()noexcept=0;
     public:
         uint32_t GenerateShaderId()noexcept;
+        virtual std::unique_ptr<Shader> CreateShader()noexcept=0;
         //void AllocateBufferData(IGPUBuffer* output, void* meta)noexcept;
     public:
         IWindow* GetWindow()const noexcept{return m_Window;}
