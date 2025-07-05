@@ -28,6 +28,7 @@ namespace Metamorphic{
         virtual void ClearDepthBuffers()noexcept=0;
         virtual void Update()noexcept=0;
     public:
+        uint32_t GenerateShaderId()noexcept;
         //void AllocateBufferData(IGPUBuffer* output, void* meta)noexcept;
     public:
         IWindow* GetWindow()const noexcept{return m_Window;}
