@@ -1,12 +1,14 @@
 #include "Metamorphic/pch.h"
-#include "Platform/Rendering/Renderers/VulkanRenderer.h"
 #include "Core/Logger.h"
 #include "Core/Core.h"
 
+#include "Platform/Rendering/Renderers/VulkanRenderer.h"
+#include "Platform/Rendering/Shaders/VulkanShader.h"
+
 #ifdef METAMORPHIC_PLATFORM_WINDOWS
-#include "Platform/Window/WindowsWindow.h"
+    #include "Platform/Window/WindowsWindow.h"
 #else
-#error Unsupported platform for vulkan renderer
+    #error Unsupported platform for vulkan renderer
 #endif
 namespace Metamorphic{
     VulkanRenderer::VulkanRenderer(IWindow* window)noexcept : IRenderAPI(window){}
@@ -134,7 +136,6 @@ namespace Metamorphic{
         createInfo.pQueueCreateInfos = queueCreateInfos.data();
         
         vkGetDeviceQueue(m_Device, indices.m_PresentFamily.value(), 0, &m_PresentQueue);
-
         return RenderAPIError::None;
     }
     bool VulkanRenderer::IsDeviceSuitable(VkPhysicalDevice device)const noexcept{
@@ -186,4 +187,8 @@ namespace Metamorphic{
     }
 
     void VulkanRenderer::Update()noexcept{}
+    
+    std::unique_ptr<Shader> VulkanRenderer::CreateShader()noexcept{
+        return std::make_unique<VulkanShader>(reinterpret_cast<IRenderAPI*>(this));
+    }
 }

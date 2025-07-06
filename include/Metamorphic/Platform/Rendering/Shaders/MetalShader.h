@@ -3,10 +3,10 @@
 #include "Rendering/Shader/Shader.h"
 
 namespace Metamorphic{
-    class METAMORPHIC_API VulkanShader : public Shader{
+    class METAMORPHIC_API MetalShader : public Shader{
     public:
-        VulkanShader(IRenderAPI* renderAPI)noexcept;
-        ~VulkanShader()noexcept;
+        MetalShader(IRenderAPI* renderAPI)noexcept;
+        ~MetalShader()noexcept;
 
         void Start()noexcept override;
         void Stop()noexcept override;

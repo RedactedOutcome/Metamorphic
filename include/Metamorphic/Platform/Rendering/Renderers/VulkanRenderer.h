@@ -23,6 +23,8 @@ namespace Metamorphic{
         void PrepareScreen() noexcept override;
         void ClearDepthBuffers()noexcept override;
         void Update()noexcept override;
+        
+        std::unique_ptr<Shader> CreateShader()noexcept override;
     private:
         RenderAPIError CreateDevice()noexcept;
         bool IsDeviceSuitable(VkPhysicalDevice device)const noexcept;

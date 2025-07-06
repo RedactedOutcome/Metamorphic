@@ -1,7 +1,8 @@
 #include "Metamorphic/pch.h"
-#include "Platform/Rendering/Renderers/OpenGLRenderer.h"
 #include "Core/Logger.h"
 
+#include "Platform/Rendering/Renderers/OpenGLRenderer.h"
+#include "Platform/Rendering/Shaders/OpenGLShader.h"
 #include "Platform/Rendering/Mesh/Buffers/OpenGL/OGLVAOBuffer.h"
 
 namespace Metamorphic{
@@ -54,4 +55,8 @@ namespace Metamorphic{
     }
 
     void OpenGLRenderer::Update()noexcept{}
+
+    std::unique_ptr<Shader> OpenGLRenderer::CreateShader()noexcept{
+        return std::make_unique<OpenGLShader>(this);
+    }
 }

@@ -7,16 +7,16 @@ namespace Metamorphic{
         m_VertexShaderData(vertexShaderData), m_FragmentShaderData(fragmentShaderData){}
     ShaderData::~ShaderData()noexcept{}
 
-    void ShaderData::SetVertexShaderData(const HBuffer& data){
+    void ShaderData::SetVertexShaderData(const HBuffer& data)noexcept{
         m_VertexShaderData = data;
     }
-    void ShaderData::SetVertexShaderData(HBuffer&& data){
+    void ShaderData::SetVertexShaderData(HBuffer&& data)noexcept{
         m_VertexShaderData = std::move(data);
     }
-    void ShaderData::SetFragmentShaderData(const HBuffer& data){
+    void ShaderData::SetFragmentShaderData(const HBuffer& data)noexcept{
         m_FragmentShaderData = data;
     }
-    void ShaderData::SetFragmentShaderData(HBuffer&& data){
+    void ShaderData::SetFragmentShaderData(HBuffer&& data)noexcept{
         m_FragmentShaderData = std::move(data);
     }
 }

@@ -119,7 +119,10 @@ if(${MetamorphicUseOpenGL})
         message(FATAL "Metamorphic OpenGL Unsupported platform ${CMAKE_SYSTEM_NAME}")
     endif()
 
-    target_sources(${PROJECT_NAME} PRIVATE ${PlatformSrc}Rendering/Renderers/OpenGLRenderer.cpp)
+    target_sources(${PROJECT_NAME} PRIVATE
+        ${PlatformSrc}Rendering/Renderers/OpenGLRenderer.cpp
+        ${PlatformSrc}Rendering/Shader/OpenGLShader.cpp
+    )
 endif()
 
 if(${MetamorphicUseVulkan})
@@ -128,7 +131,10 @@ if(${MetamorphicUseVulkan})
     else()
         message(FATAL "Metamorphic Vulkan unsupported platform")
     endif()
-    target_sources(${PROJECT_NAME} PRIVATE ${PlatformSrc}Rendering/Renderers/VulkanRenderer.cpp)
+    target_sources(${PROJECT_NAME} PRIVATE
+        ${PlatformSrc}Rendering/Renderers/VulkanRenderer.cpp
+        ${PlatformSrc}Rendering/Shader/VulkanShader.cpp
+    )
     target_compile_definitions(${PROJECT_NAME} PUBLIC METAMORPHIC_USE_VULKAN)
     target_include_directories(${PROJECT_NAME} PUBLIC $ENV{VULKAN_SDK}/Include)
     target_link_directories(${PROJECT_NAME} PUBLIC $ENV{VULKAN_SDK}/Lib)

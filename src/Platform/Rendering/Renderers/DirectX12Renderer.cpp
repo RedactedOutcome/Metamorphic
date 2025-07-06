@@ -1,6 +1,7 @@
 #include "Metamorphic/pch.h"
-#include "Platform/Rendering/Renderers/DirectX12Renderer.h"
 #include "Core/Logger.h"
+#include "Platform/Rendering/Renderers/DirectX12Renderer.h"
+#include "Platform/Rendering/Shaders/DirectX12Shader.h"
 
 namespace Metamorphic{
     DirectX12Renderer::DirectX12Renderer(IWindow* window)noexcept : IRenderAPI(window){}
@@ -22,4 +23,8 @@ namespace Metamorphic{
     }
 
     void DirectX12Renderer::Update()noexcept{}
+    
+    std::unique_ptr<Shader> DirectX12Renderer::CreateShader()noexcept{
+        return std::make_unique<DirectX12Shader>(this);
+    }
 }

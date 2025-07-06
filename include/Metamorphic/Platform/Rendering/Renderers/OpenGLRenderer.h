@@ -14,5 +14,7 @@ namespace Metamorphic{
         void PrepareScreen() noexcept override;
         void ClearDepthBuffers()noexcept override;
         void Update()noexcept override;
+        
+        std::unique_ptr<Shader> CreateShader()noexcept override;
     };
 }
