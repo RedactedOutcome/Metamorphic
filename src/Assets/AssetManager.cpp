@@ -63,19 +63,19 @@ namespace Metamorphic{
                 break;
             }
             i+=2;
-            HBuffer resourceName = data.SubString(i, characterCount);
-            if(resourceName.GetSize() != characterCount){
+            HBuffer assetName = data.SubString(i, characterCount);
+            if(assetName.GetSize() != characterCount){
                 file.close();
                 return AssetManagerError::CorruptedAssetMap;
             }
             i+=characterCount;
-            uint32_t resourceOffset;
-            if(!data.ExtractUInt32(i, &resourceOffset)){
+            uint32_t assetOffset;
+            if(!data.ExtractUInt32(i, &assetOffset)){
                 file.close();
                 return AssetManagerError::CorruptedAssetMap;
             }
-            assetOffsets offset {static_cast<uint32_t>(i), resourceOffset};
-            m_AssetsMap.insert(std::make_pair(std::move(resourceName), offset));
+            AssetOffsets offset {static_cast<uint32_t>(i), assetOffset};
+            m_AssetsMap.insert(std::make_pair(std::move(assetName), offset));
             i+=4;
         }
         file.close();
@@ -86,20 +86,20 @@ namespace Metamorphic{
     AssetManagerError AssetManager::LoadAssetsBuffer() noexcept{
         m_LoadedAssets = false;
 
-        std::filesystem::path resourcePath(m_AssetsPath.GetCStr());
-        resourcePath.replace_extension(".cpr");
-        std::ifstream resourceFile(resourcePath, std::ios::binary | std::ios::ate);
+        std::filesystem::path assetPath(m_AssetsPath.GetCStr());
+        assetPath.replace_extension(".cpr");
+        std::ifstream assetFile(assetPath, std::ios::binary | std::ios::ate);
 
-        if(!resourceFile){
+        if(!assetFile){
             return AssetManagerError::FailedToLoadFilePath;
         }
 
-        size_t size = resourceFile.tellg();
-        resourceFile.seekg(std::ios::beg);
+        size_t size = assetFile.tellg();
+        assetFile.seekg(std::ios::beg);
         m_AssetsBuffer.Reserve(size);
         m_AssetsBuffer.SetSize(size);
-        resourceFile.read(m_AssetsBuffer.GetData(), size);
-        resourceFile.close();
+        assetFile.read(m_AssetsBuffer.GetData(), size);
+        assetFile.close();
 
         /// Verify Assets
         char magicNumbers[3] = {0x15, 0x18, 0x61};
@@ -107,7 +107,7 @@ namespace Metamorphic{
             return AssetManagerError::CorruptedAssets;
         }
         if(m_AssetsBuffer.StartsWith(3, "0.0.1", 5) == false){
-            return AssetManagerError::UnsupportedResourceVersion;
+            return AssetManagerError::UnsupportedAssetVersion;
         }
         m_LoadedAssets = true;
 
@@ -148,30 +148,30 @@ namespace Metamorphic{
             }
 
             /// Get Assets Path Size
-            uint16_t resourcePathSize;
-            m_MapStream.read(reinterpret_cast<char*>(&resourcePathSize), sizeof(uint16_t));
+            uint16_t assetPathSize;
+            m_MapStream.read(reinterpret_cast<char*>(&assetPathSize), sizeof(uint16_t));
             if(!m_MapStream){
                 m_MapStream.close();
                 return AssetManagerError::CorruptedAssetMap;
             }
-            /// Get Resource Path from non null terminated string
-            size_t capacity = static_cast<size_t>(resourcePathSize + 1);
+            /// Get Asset Path from non null terminated string
+            size_t capacity = static_cast<size_t>(assetPathSize + 1);
             char* string = new char[capacity];
-            m_MapStream.read(string, resourcePathSize);
+            m_MapStream.read(string, assetPathSize);
             if(!m_MapStream){
                 m_MapStream.close();
                 delete string;
                 errorMessage = "Failed to get asset path from file map";
                 return AssetManagerError::CorruptedAssetMap;
             }
-            m_AssetsPath = HBuffer(string, resourcePathSize, capacity, true, true);
+            m_AssetsPath = HBuffer(string, assetPathSize, capacity, true, true);
             m_AssetsBuffer.Free();
             m_LoadedAssets = false;
             m_AssetsMap.clear();
 
             /// @brief Putting all assets onto map incase rewrite
             while(true){
-                /// Get Resource Name Character Count
+                /// Get Asset Name Character Count
                 uint16_t size;
                 m_MapStream.read(reinterpret_cast<char*>(&size), sizeof(uint16_t));
                 if(!m_MapStream){
@@ -191,25 +191,25 @@ namespace Metamorphic{
                 m_MapStream.read(stringData, size);
 
                 if(!m_MapStream){
-                    /// Failed to read Resource Name Corrupted File
+                    /// Failed to read Asset Name Corrupted File
                     delete stringData;
                     errorMessage = "Failed to read asset path string from asset map";
                     return AssetManagerError::CorruptedAssetMapIndex;
                 }
-                HBuffer resourceName(stringData, size, size + 1, true, true);
-                if(m_AssetsMap.find(resourceName) != m_AssetsMap.end()){
+                HBuffer assetName(stringData, size, size + 1, true, true);
+                if(m_AssetsMap.find(assetName) != m_AssetsMap.end()){
                     /// Duplicate Assets Names
-                    return AssetManagerError::AmbiguousResource;
+                    return AssetManagerError::AmbiguousAsset;
                 }
                 uint32_t mapOffset = m_MapStream.tellg();
-                uint32_t resourceOffset = 0;
-                m_MapStream.read(reinterpret_cast<char*>(&resourceOffset), sizeof(uint32_t));
+                uint32_t assetOffset = 0;
+                m_MapStream.read(reinterpret_cast<char*>(&assetOffset), sizeof(uint32_t));
                 if(!m_MapStream){
                     return AssetManagerError::CorruptedAssetMapIndex;
                 }
-                assetOffsets assetOffsets = {mapOffset, resourceOffset};
+                AssetOffsets AssetOffsets = {mapOffset, assetOffset};
 
-                m_AssetsMap.insert(std::make_pair(std::move(resourceName), assetOffsets));
+                m_AssetsMap.insert(std::make_pair(std::move(assetName), AssetOffsets));
             }
 
             m_MapStream.seekp(0, std::ios::end);
@@ -232,17 +232,17 @@ namespace Metamorphic{
         if(writeMapDefaultHeaders){
             m_MapStream.seekp(0, std::ios::beg);
             m_MapStream.write(assetsMapMagicNumbers, 3);
-            std::string resourcePathString = assetsPath.string();
-            uint16_t size = static_cast<uint16_t>(resourcePathString.size());
+            std::string assetPathString = assetsPath.string();
+            uint16_t size = static_cast<uint16_t>(assetPathString.size());
             m_MapStream.write(reinterpret_cast<char*>(&size), sizeof(uint16_t));
-            m_MapStream.write(resourcePathString.data(), size);
+            m_MapStream.write(assetPathString.data(), size);
         }
         m_IsMapLoaded = true;
         /// Assets
         /// Checking if there is already existing assets
         m_AssetsStream = std::fstream(assetsPath, std::ios::binary | std::ios::in | std::ios::out);
         
-        char resourceMagicNumbers[3] = {0x15, 0x18, 0x61};
+        char assetMagicNumbers[3] = {0x15, 0x18, 0x61};
         bool addHeaders = true;
 
         m_AssetsStream.seekg(0, std::ios::end);
@@ -255,13 +255,13 @@ namespace Metamorphic{
                 errorMessage = "Failed to read enough bytes for assets magic number and version";
                 return AssetManagerError::CorruptedAssets;
             }
-            if(strncmp(test, resourceMagicNumbers, 3) != 0){
+            if(strncmp(test, assetMagicNumbers, 3) != 0){
                 errorMessage = "assets had invalid magic number";
                 return AssetManagerError::CorruptedAssets;
             }
             if(strncmp(test + 3, "0.0.1", 5) != 0){
                 errorMessage = "assets had unsupported version";
-                return AssetManagerError::UnsupportedResourceVersion;
+                return AssetManagerError::UnsupportedAssetVersion;
             }
 
             m_AssetsStream.seekg(0, std::ios::end);
@@ -273,7 +273,7 @@ namespace Metamorphic{
         if(addHeaders){
             /// File just created or corrupted.
             m_AssetsStream.seekp(0, std::ios::beg);
-            m_AssetsStream.write(resourceMagicNumbers, 3);
+            m_AssetsStream.write(assetMagicNumbers, 3);
             m_AssetsStream.write("0.0.1", 5);
             m_WriteOffset = m_AssetsStream.tellp();
         }
@@ -307,11 +307,11 @@ namespace Metamorphic{
         if(iterator != m_AssetsMap.end()){
             /// ReWrite Assets
             /// @brief erase current asset and write all assets after it
-            assetOffsets assetOffsets = iterator->second;
+            AssetOffsets assetOffsets = iterator->second;
             m_WriteOffset = assetOffsets.m_AssetsOffset;
             
             /// Sort lowest to highest offset so no asset gets overwriten.
-            std::vector<std::unordered_map<HBuffer, assetOffsets>::iterator> offsets;
+            std::vector<std::unordered_map<HBuffer, AssetOffsets>::iterator> offsets;
             for (auto it = m_AssetsMap.begin(); it != m_AssetsMap.end(); ++it) {
                 uint32_t offset = it->second.m_AssetsOffset;
                 if(offset <= m_WriteOffset)continue;
@@ -329,7 +329,7 @@ namespace Metamorphic{
             HBuffer temp(tempRaw, tempRawSize, tempRawSize, false, false);
 
             for(size_t i = 0; i < offsets.size(); i++){
-                assetOffsets otherOffsets = offsets[i]->second;
+                AssetOffsets otherOffsets = offsets[i]->second;
                 m_AssetsStream.seekg(0, otherOffsets.m_AssetsOffset);
                 uint32_t assetSize;
                 m_AssetsStream.read(reinterpret_cast<char*>(&assetSize), sizeof(uint32_t));
@@ -376,7 +376,7 @@ namespace Metamorphic{
         m_MapStream.write(reinterpret_cast<char*>(&m_WriteOffset), sizeof(uint32_t));
         m_WriteOffset+=data.GetSize();
 
-        assetOffsets offsets{mapOffset, assetsOffset};
+        AssetOffsets offsets{mapOffset, assetsOffset};
         m_AssetsMap.insert(std::make_pair(std::move(name), offsets));
         return AssetManagerError::None;
     }
