@@ -19,4 +19,8 @@ namespace Metamorphic{
     void ShaderData::SetFragmentShaderData(HBuffer&& data)noexcept{
         m_FragmentShaderData = std::move(data);
     }
+
+    void ShaderData::LoadResource(const HBuffer& filePath)noexcept{
+        
+    }
 }

@@ -14,6 +14,8 @@ namespace Metamorphic{
         void SetVertexShaderData(HBuffer&& data)noexcept;
         void SetFragmentShaderData(const HBuffer& data)noexcept;
         void SetFragmentShaderData(HBuffer&& data)noexcept;
+
+        void LoadResource(const HBuffer& filePath)noexcept;
     public:
         HBuffer GetVertexShaderData() const noexcept{return m_VertexShaderData;}
         HBuffer GetFragmentShaderData() const noexcept{return m_FragmentShaderData;}
