@@ -5,3 +5,7 @@
 
 /// Meshes
 #include "Metamorphic/Rendering/Mesh/BasicMesh.h"
+
+/// Assets & Resources
+#include "Metamorphic/Assets/AssetManager.h"
+#include "Metamorphic/Resources/ResourceManager.h"

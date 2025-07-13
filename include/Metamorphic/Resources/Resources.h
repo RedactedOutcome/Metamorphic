@@ -1,10 +1,9 @@
 #pragma once
 
 namespace Metamorphic{
-    enum class ResourceLoadError{
+    enum class ResourceType{
         None=0,
-        FailedToOpenFile,
-        FileDoesntExist,
-        ResourceLocked
+        Shader,
+        Image
     };
 }

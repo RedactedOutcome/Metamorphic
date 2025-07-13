@@ -8,10 +8,10 @@ public:
 public:
 #ifdef METAMORPHIC_USE_SPDLOG
     inline static std::shared_ptr<spdlog::logger>& GetCoreLogger() { return s_CoreLogger; }
-    inline static std::shared_ptr<spdlog::logger>& GetSandboxLogger() { return s_SandboxLogger; }
+    inline static std::shared_ptr<spdlog::logger>& GetApplicationLogger() { return s_ApplicationLogger; }
 private:
     static std::shared_ptr<spdlog::logger> s_CoreLogger;
-    static std::shared_ptr<spdlog::logger> s_SandboxLogger;
+    static std::shared_ptr<spdlog::logger> s_ApplicationLogger;
 #endif
 };
 
@@ -23,11 +23,11 @@ private:
         #define MORPHIC_LOG(...)	::Logger::GetCoreLogger()->info(__VA_ARGS__)
         #define MORPHIC_DEBUG(...)	::Logger::GetCoreLogger()->info(__VA_ARGS__)
         
-        #define SANDBOX_ERROR(...)	::Logger::GetSandboxLogger()->error(__VA_ARGS__)
-        #define SANDBOX_WARN(...)	::Logger::GetSandboxLogger()->warn(__VA_ARGS__)
-        #define SANDBOX_INFO(...)	::Logger::GetSandboxLogger()->info(__VA_ARGS__)
-        #define SANDBOX_LOG(...)	::Logger::GetSandboxLogger()->info(__VA_ARGS__)
-        #define SANDBOX_DEBUG(...)	::Logger::GetSandboxLogger()->info(__VA_ARGS__)
+        #define APPLICATION_ERROR(...)	::Logger::GetApplicationLogger()->error(__VA_ARGS__)
+        #define APPLICATION_WARN(...)	::Logger::GetApplicationLogger()->warn(__VA_ARGS__)
+        #define APPLICATION_INFO(...)	::Logger::GetApplicationLogger()->info(__VA_ARGS__)
+        #define APPLICATION_LOG(...)	::Logger::GetApplicationLogger()->info(__VA_ARGS__)
+        #define APPLICATION_DEBUG(...)	::Logger::GetApplicationLogger()->info(__VA_ARGS__)
     #else
         #error No Logging Library Specified
     #endif
@@ -38,9 +38,9 @@ private:
     #define MORPHIC_LOG(...)
     #define MORPHIC_DEBUG(...)
     
-    #define SANDBOX_ERROR(...)
-    #define SANDBOX_WARN(...)
-    #define SANDBOX_INFO(...)
-    #define SANDBOX_LOG(...)
-    #define SANDBOX_DEBUG(...)
+    #define Application_ERROR(...)
+    #define Application_WARN(...)
+    #define Application_INFO(...)
+    #define Application_LOG(...)
+    #define Application_DEBUG(...)
 #endif

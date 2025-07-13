@@ -37,11 +37,12 @@ namespace Metamorphic{
         void SetName(const HBuffer& name)noexcept{m_Name = name;}
         void SetName(HBuffer&& name)noexcept{m_Name = std::move(name);}
     public:
+        SceneManager* GetSceneManager() const noexcept{return m_SceneManager;}
         SceneBuildIndex GetBuildIndex() const noexcept{return m_SceneIndex;}
         const HBuffer& GetName() const noexcept{return m_Name;}
         bool IsAwoken()const noexcept{return m_Awoken;}
         std::vector<std::unique_ptr<GameObject>>& GetGameObjects(){return (std::vector<std::unique_ptr<GameObject>>&)m_GameObjects;}
-    private:
+    protected:
         SceneManager* m_SceneManager = nullptr;
         SceneBuildIndex m_SceneIndex = SceneBuildIndex::None;
         HBuffer m_Name = "Scene";

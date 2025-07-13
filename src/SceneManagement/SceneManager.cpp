@@ -3,6 +3,8 @@
 #include "Metamorphic/Core/Event/Events/OnBeforeApplicationExitEvent.h"
 
 namespace Metamorphic{
+    SceneManager::SceneManager(Application* application)noexcept: m_Application(application){}
+    
     void SceneManager::Init()noexcept{
         m_Scenes.clear();
         m_Scenes.reserve(5);

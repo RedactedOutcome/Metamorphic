@@ -26,6 +26,8 @@ namespace Metamorphic{
         void LateDraw()noexcept;
         void Run()noexcept;
         void Shutdown()noexcept;
+        void Exit()noexcept;
+        void Exit(const HBuffer& reason)noexcept;
     public:
         /// @brief After program is initialized in the Run Method
         virtual void AfterInitialized()noexcept{}

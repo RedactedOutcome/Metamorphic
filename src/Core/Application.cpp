@@ -16,7 +16,8 @@
 #include "Platform/Physics/PhysX/PhysXPhysics.h"
 
 namespace Metamorphic{
-    Application::Application()noexcept{}
+    Application::Application()noexcept :
+        m_SceneManager(this){}
     Application::~Application()noexcept{}
 
     void Application::Run()noexcept{
@@ -111,5 +112,15 @@ namespace Metamorphic{
             m_Window.reset();
         }
         MORPHIC_INFO("Shutdown");
+    }
+    void Application::Exit()noexcept{
+        Shutdown();
+        MORPHIC_INFO("Exitting");
+        std::exit(-1);
+    }
+    void Application::Exit(const HBuffer& reason)noexcept{
+        Shutdown();
+        MORPHIC_INFO("Exitting. Reason {0}", reason.GetCStr());
+        std::exit(-1);
     }
 }

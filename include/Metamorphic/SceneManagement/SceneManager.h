@@ -4,8 +4,11 @@
 
 namespace Metamorphic{
     /// @brief A scene manager that handles scene classes. No use of smart
+    class Application;
     class SceneManager{
     public:
+        SceneManager(Application* application)noexcept;
+        
         void Init()noexcept;
         void Shutdown()noexcept;
     
@@ -28,10 +31,12 @@ namespace Metamorphic{
         /// @brief Checks if the scene list contains param scene and if so we remove then free it.
         bool DeleteScene(Scene* scene)noexcept;
     public:
+        Application* GetApplication() const noexcept{return m_Application;}
         /// @brief returns the first scene with the same buildIndex as param index. nullptr if not able to find one
         Scene* GetSceneByBuildIndex(SceneBuildIndex index)noexcept;
         Scene* GetSceneByName(const HBuffer& sceneName)noexcept;
     private:
+        Application* m_Application=nullptr;
         std::vector<std::unique_ptr<Scene>> m_Scenes;
         std::vector<Scene*> m_ScenesToAwake;
         std::vector<Scene*> m_ScenesToStart;
