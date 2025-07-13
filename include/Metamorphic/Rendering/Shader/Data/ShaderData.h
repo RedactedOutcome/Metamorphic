@@ -7,7 +7,10 @@ namespace Metamorphic{
     class METAMORPHIC_API ShaderData{
     public:
         ShaderData()noexcept;
+        ShaderData(const HBuffer& vertexShaderData, HBuffer&& fragmentShaderData)noexcept;
         ShaderData(HBuffer&& vertexShaderData, HBuffer&& fragmentShaderData)noexcept;
+        ShaderData(const HBuffer& vertexShaderData, const HBuffer& fragmentShaderData)noexcept;
+        ShaderData(HBuffer&& vertexShaderData, const HBuffer& fragmentShaderData)noexcept;
         ~ShaderData()noexcept;
 
         void SetVertexShaderData(const HBuffer& data)noexcept;

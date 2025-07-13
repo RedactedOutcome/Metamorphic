@@ -5,6 +5,12 @@ namespace Metamorphic{
     ShaderData::ShaderData()noexcept{}
     ShaderData::ShaderData(HBuffer&& vertexShaderData, HBuffer&& fragmentShaderData)noexcept:
         m_VertexShaderData(vertexShaderData), m_FragmentShaderData(fragmentShaderData){}
+    ShaderData::ShaderData(const HBuffer& vertexShaderData, HBuffer&& fragmentShaderData)noexcept:
+        m_VertexShaderData(vertexShaderData), m_FragmentShaderData(fragmentShaderData){}
+    ShaderData::ShaderData(const HBuffer& vertexShaderData, const HBuffer& fragmentShaderData)noexcept:
+        m_VertexShaderData(vertexShaderData), m_FragmentShaderData(fragmentShaderData){}
+    ShaderData::ShaderData(HBuffer&& vertexShaderData, const HBuffer& fragmentShaderData)noexcept:
+        m_VertexShaderData(vertexShaderData), m_FragmentShaderData(fragmentShaderData){}
     ShaderData::~ShaderData()noexcept{}
 
     void ShaderData::SetVertexShaderData(const HBuffer& data)noexcept{
