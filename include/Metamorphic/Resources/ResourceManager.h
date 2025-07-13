@@ -24,6 +24,6 @@ namespace Metamorphic{
 
     class ResourceManager{
     public:
-        static ResourceManagerError LoadResource(ResourceType type, HBuffer resourcePath, HBuffer& output)noexcept;
+        static ResourceManagerError LoadResource(ResourceType type, const HBuffer& resourcePath, HBuffer& output)noexcept;
     };
 }
