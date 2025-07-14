@@ -1,5 +1,6 @@
 #include "Metamorphic/pch.h"
 #include "Rendering/Shader/Data/ShaderData.h"
+#include "Rendering/IRenderAPI.h"
 
 namespace Metamorphic{
     ShaderData::ShaderData()noexcept{}
@@ -26,7 +27,22 @@ namespace Metamorphic{
         m_FragmentShaderData = std::move(data);
     }
 
-    void ShaderData::LoadResource(const HBuffer& filePath)noexcept{
-        
+    ResourceManagerError ShaderData::LoadResource(IRenderAPI* renderAPI, const HBuffer& filePath)noexcept{
+        std::filesystem::path path(filePath.GetSafeCString().GetCStr());
+        switch(renderAPI->GetRenderAPI()){
+        case RenderAPI::OpenGL:{
+            path.replace_extension(".glsl");
+            break;
+        }
+        default:
+            return ResourceManagerError::UnsupportedAPI;
+        }
+        ResourceManagerError error = ResourceManager::LoadResource(ResourceType::ShaderData, path, m_VertexShaderData);
+        if(error != ResourceManagerError::None)return error;
+
+        error = ResourceManager::LoadResource(ResourceType::ShaderData, path, m_FragmentShaderData);
+        if(error != ResourceManagerError::None)return error;
+
+        return ResourceManagerError::None;
     }
 }

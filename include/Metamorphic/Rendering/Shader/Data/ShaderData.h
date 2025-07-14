@@ -1,9 +1,10 @@
 #pragma once
 
-#include "Metamorphic/pch.h"
+#include "Metamorphic/Resources/ResourceManager.h"
 #include "Metamorphic/Core/Core.h"
 
 namespace Metamorphic{
+    class IRenderAPI;
     class METAMORPHIC_API ShaderData{
     public:
         ShaderData()noexcept;
@@ -18,7 +19,7 @@ namespace Metamorphic{
         void SetFragmentShaderData(const HBuffer& data)noexcept;
         void SetFragmentShaderData(HBuffer&& data)noexcept;
 
-        void LoadResource(const HBuffer& filePath)noexcept;
+        ResourceManagerError LoadResource(IRenderAPI* renderAPI, const HBuffer& filePath)noexcept;
     public:
         HBuffer GetVertexShaderData() const noexcept{return m_VertexShaderData;}
         HBuffer GetFragmentShaderData() const noexcept{return m_FragmentShaderData;}

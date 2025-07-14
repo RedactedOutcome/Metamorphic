@@ -28,7 +28,6 @@ namespace Metamorphic{
         }
         AfterInitialized();
         while(m_Window->IsCreated()){
-            Time::Update();
             Update();
             LateUpdate();
             //MORPHIC_INFO("FPS {0}", (1.0f / Time::GetDeltaTime()));
@@ -73,6 +72,7 @@ namespace Metamorphic{
     }
 
     void Application::Update()noexcept{
+        Time::Update();
         m_SceneManager.Update();
     }
     void Application::FixedUpdate()noexcept{

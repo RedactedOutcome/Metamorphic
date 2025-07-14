@@ -19,11 +19,12 @@ namespace Metamorphic{
         DeviceError,
         SymlinkLoop,
         FileSystemCorrupted,
-        UnsupportedOperation
+        UnsupportedOperation,
+        UnsupportedAPI
     };
 
     class ResourceManager{
     public:
-        static ResourceManagerError LoadResource(ResourceType type, const HBuffer& resourcePath, HBuffer& output)noexcept;
+        static ResourceManagerError LoadResource(ResourceType type, const std::filesystem::path& path, HBuffer& output)noexcept;
     };
 }

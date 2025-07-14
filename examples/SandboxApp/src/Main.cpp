@@ -18,19 +18,25 @@ public:
 
         HBuffer vertexShaderData;
         HBuffer fragmentShaderData;
-
-        ResourceManagerError error = ResourceManager::LoadResource(ResourceType::Shader, "res/shaders/test-vert", vertexShaderData);
+        /*
+        ResourceManagerError error = ResourceManager::LoadResource(ResourceType::ShaderData, "res/shaders/test-vert", vertexShaderData);
         if(error != ResourceManagerError::None){
             APPLICATION_ERROR("Failed to load resource test-vert. Error {0}", (int)error);
             m_SceneManager->GetApplication()->Exit();
         }
-        error = ResourceManager::LoadResource(ResourceType::Shader, "res/shaders/test-frag", fragmentShaderData);
+        error = ResourceManager::LoadResource(ResourceType::ShaderData, "res/shaders/test-frag", fragmentShaderData);
         if(error != ResourceManagerError::None){
             APPLICATION_ERROR("Failed to load resource test-frag. Error {0}", (int)error);
             m_SceneManager->GetApplication()->Exit();
+        }*/
+
+        //m_ShaderData.SetVertexShaderData(std::move(vertexShaderData));
+        //m_ShaderData.SetFragmentShaderData(std::move(fragmentShaderData));
+        ResourceManagerError error = m_ShaderData.LoadResource("res/shaders/test-frag");
+        if(error != ResourceManagerError::None){
+            APPLICATION_ERROR("Failed to load resource test-frag. Reason {0}", (int)error);
+            m_SceneManager->GetApplication()->Exit();
         }
-        m_ShaderData.SetVertexShaderData(std::move(vertexShaderData));
-        m_ShaderData.SetFragmentShaderData(std::move(fragmentShaderData));
         m_Shader->SetShaderData(&m_ShaderData);
     }
     ~CustomScene()noexcept{}
